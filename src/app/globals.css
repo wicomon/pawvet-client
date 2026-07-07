@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design tokens — raw values, light theme (default)
+   ============================================================ */
+:root {
+  --color-brand: #3d4ff0;
+  --color-brand-hover: #3243d6;
+  --color-accent: #f5a524;
+  --color-accent-ink: #ffffff;
+
+  --color-page: #eef1fa;
+  --color-card: #ffffff;
+  --color-field: #fbfbfe;
+  --color-track: #f5f6fc;
+  --color-divider: #f0f1f8;
+
+  --color-ink: #1c2135;
+  --color-label: #6b7290;
+  --color-muted: #8a91ab;
+  --color-placeholder: #a7adc7;
+  --color-subtle: #e2e5f4;
+  --color-on-brand: #ffffff;
+  --color-on-brand-muted: rgb(255 255 255 / 75%);
+  --color-on-brand-faint: rgb(255 255 255 / 14%);
+  --color-on-brand-line: rgb(255 255 255 / 35%);
+
+  --color-success: #16a34a;
+  --color-danger: #d9531f;
+  --color-danger-bg: #fff3ee;
+  --color-danger-border: #e8906a;
+
+  --shadow-card: 0 30px 70px -30px rgb(30 41 120 / 28%);
+  --shadow-pill: 0 6px 14px -8px rgb(30 41 120 / 35%);
+  --shadow-focus: 0 0 0 3px rgb(61 79 240 / 12%);
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-brand: #5866f3;
+    --color-brand-hover: #6b78f6;
+    --color-accent: #f5a524;
+    --color-accent-ink: #1c2135;
+
+    --color-page: #0d1020;
+    --color-card: #151a2e;
+    --color-field: #1b2138;
+    --color-track: #1b2138;
+    --color-divider: #252c47;
+
+    --color-ink: #eef1fa;
+    --color-label: #aab2cc;
+    --color-muted: #8891ad;
+    --color-placeholder: #5a6486;
+    --color-subtle: #2a3150;
+    --color-on-brand: #ffffff;
+    --color-on-brand-muted: rgb(255 255 255 / 75%);
+    --color-on-brand-faint: rgb(255 255 255 / 14%);
+    --color-on-brand-line: rgb(255 255 255 / 35%);
+
+    --color-success: #22c55e;
+    --color-danger: #f87155;
+    --color-danger-bg: #2a1a17;
+    --color-danger-border: #7a3a2a;
+
+    --shadow-card: 0 30px 70px -30px rgb(0 0 0 / 55%);
+    --shadow-pill: 0 6px 14px -8px rgb(0 0 0 / 45%);
+    --shadow-focus: 0 0 0 3px rgb(88 102 243 / 22%);
+  }
+}
+
+/* ============================================================
+   Tailwind theme mapping — exposes tokens as utilities
+   ============================================================ */
+@theme inline {
+  --color-brand: var(--color-brand);
+  --color-brand-hover: var(--color-brand-hover);
+  --color-accent: var(--color-accent);
+  --color-accent-ink: var(--color-accent-ink);
+
+  --color-page: var(--color-page);
+  --color-card: var(--color-card);
+  --color-field: var(--color-field);
+  --color-track: var(--color-track);
+  --color-divider: var(--color-divider);
+
+  --color-ink: var(--color-ink);
+  --color-label: var(--color-label);
+  --color-muted: var(--color-muted);
+  --color-placeholder: var(--color-placeholder);
+  --color-subtle: var(--color-subtle);
+  --color-on-brand: var(--color-on-brand);
+  --color-on-brand-muted: var(--color-on-brand-muted);
+  --color-on-brand-faint: var(--color-on-brand-faint);
+  --color-on-brand-line: var(--color-on-brand-line);
+
+  --color-success: var(--color-success);
+  --color-danger: var(--color-danger);
+  --color-danger-bg: var(--color-danger-bg);
+  --color-danger-border: var(--color-danger-border);
+
+  --font-display: var(--font-jakarta);
+  --font-sans: var(--font-inter);
+
+  --radius-card: 32px;
+  --radius-field: 14px;
+
+  --shadow-card: var(--shadow-card);
+  --shadow-pill: var(--shadow-pill);
+  --shadow-focus: var(--shadow-focus);
+}
+
+body {
+  background: var(--color-page);
+  color: var(--color-ink);
+}
+
+/* ============================================================
+   Entrance animation — the one case that needs hand-written CSS
+   (staggered @keyframes can't be expressed as Tailwind utilities)
+   ============================================================ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="animate-"] {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transform: none !important;
+  }
+}
