@@ -1,7 +1,11 @@
 {
-  "name": "vdemia-client",
+  "name": "pawvet-client",
   "version": "0.1.0",
+  "description": "Multi-tenant SaaS for veterinary & pet shop management",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

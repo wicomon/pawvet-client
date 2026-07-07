@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isLogged } from "@/lib/isLogged";
 
 // Routes that require an authenticated session.
 const PROTECTED_PREFIXES = ["/dashboard"];
 
+// Optimistic check only: Proxy runs on every route, including prefetched
+// ones, so it must only read the session cookie and never hit the backend
+// (see node_modules/next/dist/docs/01-app/02-guides/authentication.md,
+// "Optimistic checks with Proxy"). The real authorization boundary is the
+// DAL's verifySession() (src/lib/dal.ts), which validates the token against
+// the backend on every render.
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const isProtected = PROTECTED_PREFIXES.some((prefix) =>
@@ -18,13 +23,6 @@ export async function proxy(request: NextRequest) {
 
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  const valid = await isLogged(token);
-  if (!valid) {
-    const response = NextResponse.redirect(new URL("/login", request.url));
-    response.cookies.delete("session");
-    return response;
   }
 
   return NextResponse.next();

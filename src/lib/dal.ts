@@ -6,6 +6,7 @@ import { isLogged } from "@/lib/isLogged";
 import { getSessionToken } from "@/lib/session";
 import { AUTH_USER_INFO } from "@/graphql/auth.gql";
 import type { ContextUser } from "@/types/user";
+import { BACKEND_TIMEOUT_MS } from "@/lib/backendConfig";
 
 // Data Access Layer: centralizes session verification and data requests
 // (see node_modules/next/dist/docs/01-app/02-guides/authentication.md,
@@ -35,6 +36,7 @@ export const getUser = cache(async (): Promise<ContextUser | null> => {
       },
       body: JSON.stringify({ query: print(AUTH_USER_INFO) }),
       cache: "no-store",
+      signal: AbortSignal.timeout(BACKEND_TIMEOUT_MS),
     });
 
     if (!res.ok) return null;

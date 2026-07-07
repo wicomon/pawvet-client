@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import * as Yup from "yup";
 import { LOGIN } from "@/graphql/auth.gql";
 import { createSession, deleteSession } from "@/lib/session";
+import { BACKEND_LOGIN_TIMEOUT_MS } from "@/lib/backendConfig";
 
 const LoginSchema = Yup.object({
   email: Yup.string()
@@ -61,6 +62,7 @@ export async function login(
         variables: { loginInput: values },
       }),
       cache: "no-store",
+      signal: AbortSignal.timeout(BACKEND_LOGIN_TIMEOUT_MS),
     });
 
     const { data, errors } = await res.json();
