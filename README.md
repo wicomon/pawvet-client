@@ -1,7 +1,7 @@
-# vdemia-client
+# pawvet-client
 
-Web client for vdemia, built with Next.js (App Router) on top of a GraphQL API served by the
-sibling `vdemia-server` repo.
+Web client for pawvet, built with Next.js (App Router) on top of a GraphQL API served by the
+sibling `pawvet-server` repo.
 
 ## Stack
 
@@ -15,7 +15,7 @@ sibling `vdemia-server` repo.
 
 ## Getting started
 
-Requires a running instance of `vdemia-server`. Create `.env.local` with:
+Requires a running instance of `pawvet-server`. Create `.env.local` with:
 
 ```bash
 NEXT_PUBLIC_BACKEND_URL=http://localhost:4030/gql

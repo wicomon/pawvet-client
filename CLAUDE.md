@@ -17,7 +17,7 @@ pnpm exec eslint <path>  # lint a single file
 There is no test suite configured in this repo (no test script/framework in `package.json`).
 
 Requires `NEXT_PUBLIC_BACKEND_URL` in `.env.local` — the GraphQL endpoint of the sibling
-`vdemia-server` repo (e.g. `http://localhost:4030/gql`). Everything server-side (DAL, Server
+`pawvet-server` repo (e.g. `http://localhost:4030/gql`). Everything server-side (DAL, Server
 Actions, `proxy.ts`) reads this var directly with `fetch`; there is no GraphQL client wired into
 the app.
 
