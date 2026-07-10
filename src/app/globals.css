@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../../src";
 
 /* ============================================================
    Design tokens — raw values, light theme (default)
@@ -35,6 +36,33 @@
   --shadow-focus: 0 0 0 3px rgb(61 79 240 / 12%);
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* ----------------------------------------------------------
+     WicoVet landing — separate palette, light-only by design.
+     No dark-mode override on purpose: the marketing page always
+     renders in its own light theme, distinct from the app shell.
+     ---------------------------------------------------------- */
+  --color-wv-teal: #0e8c6f;
+  --color-wv-teal-hover: #0b7a60;
+  --color-wv-mint: #17be9a;
+  --color-wv-mint-bright: #29d3ae;
+  --color-wv-navy: #0b2b45;
+  --color-wv-navy-deep: #071e31;
+  --color-wv-navy-panel: #10395c;
+  --color-wv-bg: #f6f9f8;
+  --color-wv-bg-alt: #edf5f2;
+  --color-wv-ink: #12283a;
+  --color-wv-ink-strong: #0b2b45;
+  --color-wv-muted: #3d566b;
+  --color-wv-muted-2: #5b7286;
+  --color-wv-faint: #7a8fa1;
+  --color-wv-border: #e3ece9;
+  --color-wv-mint-soft: #dff3ec;
+  --color-wv-amber-bg: #fbf0d9;
+  --color-wv-amber-ink: #8a6116;
+  --color-wv-chaos-bg: #f8e9e4;
+  --color-wv-chaos-ink: #a34b3c;
+  --color-wv-chaos-border: #e9deda;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -102,7 +130,7 @@
   --color-danger-border: var(--color-danger-border);
 
   --font-display: var(--font-jakarta);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-jakarta);
 
   --radius-card: 32px;
   --radius-field: 14px;
@@ -110,6 +138,32 @@
   --shadow-card: var(--shadow-card);
   --shadow-pill: var(--shadow-pill);
   --shadow-focus: var(--shadow-focus);
+
+  /* WicoVet landing tokens */
+  --color-wv-teal: var(--color-wv-teal);
+  --color-wv-teal-hover: var(--color-wv-teal-hover);
+  --color-wv-mint: var(--color-wv-mint);
+  --color-wv-mint-bright: var(--color-wv-mint-bright);
+  --color-wv-navy: var(--color-wv-navy);
+  --color-wv-navy-deep: var(--color-wv-navy-deep);
+  --color-wv-navy-panel: var(--color-wv-navy-panel);
+  --color-wv-bg: var(--color-wv-bg);
+  --color-wv-bg-alt: var(--color-wv-bg-alt);
+  --color-wv-ink: var(--color-wv-ink);
+  --color-wv-ink-strong: var(--color-wv-ink-strong);
+  --color-wv-muted: var(--color-wv-muted);
+  --color-wv-muted-2: var(--color-wv-muted-2);
+  --color-wv-faint: var(--color-wv-faint);
+  --color-wv-border: var(--color-wv-border);
+  --color-wv-mint-soft: var(--color-wv-mint-soft);
+  --color-wv-amber-bg: var(--color-wv-amber-bg);
+  --color-wv-amber-ink: var(--color-wv-amber-ink);
+  --color-wv-chaos-bg: var(--color-wv-chaos-bg);
+  --color-wv-chaos-ink: var(--color-wv-chaos-ink);
+  --color-wv-chaos-border: var(--color-wv-chaos-border);
+
+  --font-heading: var(--font-jakarta);
+  --font-body: var(--font-jakarta);
 }
 
 body {
@@ -129,6 +183,38 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Used only by app/template.tsx, which wraps every route (including
+   /dashboard) — so anything nested inside it can include a `fixed`
+   descendant (e.g. WhatsAppFab). A non-`none` `transform`/`translate`/
+   `scale`/`rotate`/`filter` on an ancestor makes that ancestor the
+   containing block for `position: fixed` children instead of the
+   viewport (CSS Transforms spec) — even `translateY(0)`, since it's a
+   transform value other than the literal `none`. `rise` above hits this
+   exactly once its keyframe settles at `transform: translateY(0)`, which
+   silently broke every fixed-position element site-wide (see
+   docs/whatsapp-fab-fixed-position.md). Opacity-only avoids the trap. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* WicoVet landing — subtle float for the decorative paw marks in the hero.
+   Purely decorative, so it's exempt from the "don't animate often-seen UI"
+   rule (emil-design-eng): it plays once per page view, not per interaction. */
+@keyframes float-paw {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
 

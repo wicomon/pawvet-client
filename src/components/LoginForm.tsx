@@ -20,19 +20,19 @@ export default function LoginForm() {
       className="flex flex-col gap-4 animate-[rise_400ms_var(--ease-out-strong)_100ms_both]"
     >
       <div className="flex flex-col gap-[7px]">
-        <label htmlFor={emailId} className="text-[12.5px] font-bold text-label">
+        <label htmlFor={emailId} className="text-[12.5px] font-bold text-wv-navy">
           Correo institucional
         </label>
         <input
           id={emailId}
           name="email"
           type="email"
-          placeholder="nombre@escuela.edu"
+          placeholder="nombre@clinica.com"
           autoComplete="email"
           aria-invalid={emailInvalid}
           aria-describedby={emailInvalid ? errorId : undefined}
-          className={`w-full h-12 rounded-field border-[1.5px] bg-field px-4 text-[14.5px] text-ink outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-placeholder focus-visible:border-brand focus-visible:shadow-focus focus-visible:bg-card ${
-            emailInvalid ? "border-danger-border" : "border-subtle"
+          className={`w-full h-12 rounded-field border-[1.5px] bg-white px-4 text-[14.5px] text-wv-ink outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus focus-visible:bg-white ${
+            emailInvalid ? "border-danger-border" : "border-wv-border"
           }`}
         />
         {state?.errors?.email?.map((error) => (
@@ -45,7 +45,7 @@ export default function LoginForm() {
       <div className="flex flex-col gap-[7px]">
         <label
           htmlFor={passwordId}
-          className="text-[12.5px] font-bold text-label"
+          className="text-[12.5px] font-bold text-wv-navy"
         >
           Contraseña
         </label>
@@ -58,8 +58,8 @@ export default function LoginForm() {
             autoComplete="current-password"
             aria-invalid={passwordInvalid}
             aria-describedby={passwordInvalid ? errorId : undefined}
-            className={`w-full h-12 rounded-field border-[1.5px] bg-field pl-4 pr-[52px] text-[14.5px] text-ink outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-placeholder focus-visible:border-brand focus-visible:shadow-focus focus-visible:bg-card ${
-              passwordInvalid ? "border-danger-border" : "border-subtle"
+            className={`w-full h-12 rounded-field border-[1.5px] bg-white pl-4 pr-[52px] text-[14.5px] text-wv-ink outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus focus-visible:bg-white ${
+              passwordInvalid ? "border-danger-border" : "border-wv-border"
             }`}
           />
           <button
@@ -67,7 +67,7 @@ export default function LoginForm() {
             onClick={() => setShowPass(!showPass)}
             aria-label={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
             aria-pressed={showPass}
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-9 rounded-[10px] flex items-center justify-center cursor-pointer text-muted text-xs font-bold transition-[background-color,transform] duration-150 active:scale-[0.93] hover:bg-track"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-9 rounded-[10px] flex items-center justify-center cursor-pointer text-wv-muted text-xs font-bold transition-[background-color,transform] duration-150 active:scale-[0.93] hover:bg-wv-mint-soft"
           >
             {showPass ? "Ocultar" : "Ver"}
           </button>
@@ -92,10 +92,10 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="h-[50px] rounded-field border-none text-on-brand font-display font-bold text-[15px] cursor-pointer flex items-center justify-center gap-2.5 mt-1 transition-[transform,background-color] duration-200 active:scale-[0.97] disabled:cursor-not-allowed bg-brand hover:bg-brand-hover"
+        className="h-[52px] w-full flex items-center justify-center gap-2.5 rounded-xl bg-wv-teal text-base font-extrabold text-white shadow-[0_8px_20px_rgba(14,140,111,0.25)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97] disabled:cursor-not-allowed mt-1"
       >
         {pending && (
-          <span className="w-4 h-4 rounded-full border-2 border-on-brand-line border-t-on-brand animate-[spin_500ms_linear_infinite]" />
+          <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-[spin_500ms_linear_infinite]" />
         )}
         {pending ? "Verificando…" : "Entrar"}
       </button>
