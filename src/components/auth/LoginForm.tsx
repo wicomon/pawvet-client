@@ -10,6 +10,7 @@ export default function LoginForm() {
   const emailId = useId();
   const passwordId = useId();
   const errorId = useId();
+  const rememberId = useId();
 
   const emailInvalid = Boolean(state?.errors?.email);
   const passwordInvalid = Boolean(state?.errors?.password);
@@ -20,19 +21,19 @@ export default function LoginForm() {
       className="flex flex-col gap-4 animate-[rise_400ms_var(--ease-out-strong)_100ms_both]"
     >
       <div className="flex flex-col gap-[7px]">
-        <label htmlFor={emailId} className="text-[12.5px] font-bold text-wv-navy">
-          Correo institucional
+        <label htmlFor={emailId} className="text-[13px] font-extrabold text-wv-navy">
+          Correo electrónico
         </label>
         <input
           id={emailId}
           name="email"
           type="email"
-          placeholder="nombre@clinica.com"
+          placeholder="carla@sanborjavet.pe"
           autoComplete="email"
           aria-invalid={emailInvalid}
           aria-describedby={emailInvalid ? errorId : undefined}
-          className={`w-full h-12 rounded-field border-[1.5px] bg-white px-4 text-[14.5px] text-wv-ink outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus focus-visible:bg-white ${
-            emailInvalid ? "border-danger-border" : "border-wv-border"
+          className={`w-full h-[50px] rounded-field border-[1.5px] bg-white px-[15px] text-[15px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus ${
+            emailInvalid ? "border-danger-border" : "border-wv-btn-border"
           }`}
         />
         {state?.errors?.email?.map((error) => (
@@ -43,12 +44,18 @@ export default function LoginForm() {
       </div>
 
       <div className="flex flex-col gap-[7px]">
-        <label
-          htmlFor={passwordId}
-          className="text-[12.5px] font-bold text-wv-navy"
-        >
-          Contraseña
-        </label>
+        <div className="flex items-baseline justify-between">
+          <label htmlFor={passwordId} className="text-[13px] font-extrabold text-wv-navy">
+            Contraseña
+          </label>
+          <span
+            aria-disabled="true"
+            title="Próximamente"
+            className="cursor-not-allowed text-[13px] font-bold text-wv-faint"
+          >
+            ¿La olvidaste?
+          </span>
+        </div>
         <div className="relative">
           <input
             id={passwordId}
@@ -58,8 +65,8 @@ export default function LoginForm() {
             autoComplete="current-password"
             aria-invalid={passwordInvalid}
             aria-describedby={passwordInvalid ? errorId : undefined}
-            className={`w-full h-12 rounded-field border-[1.5px] bg-white pl-4 pr-[52px] text-[14.5px] text-wv-ink outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus focus-visible:bg-white ${
-              passwordInvalid ? "border-danger-border" : "border-wv-border"
+            className={`w-full h-[50px] rounded-field border-[1.5px] bg-white pl-[15px] pr-[52px] text-[15px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus ${
+              passwordInvalid ? "border-danger-border" : "border-wv-btn-border"
             }`}
           />
           <button
@@ -79,6 +86,22 @@ export default function LoginForm() {
         ))}
       </div>
 
+      <label
+        htmlFor={rememberId}
+        className="flex items-center gap-[9px] cursor-pointer select-none"
+      >
+        <input
+          id={rememberId}
+          name="remember"
+          type="checkbox"
+          defaultChecked
+          className="h-4 w-4 accent-wv-teal"
+        />
+        <span className="text-[13.5px] font-semibold text-wv-muted">
+          Mantener sesión iniciada
+        </span>
+      </label>
+
       {state?.message && (
         <div
           id={errorId}
@@ -92,12 +115,12 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="h-[52px] w-full flex items-center justify-center gap-2.5 rounded-xl bg-wv-teal text-base font-extrabold text-white shadow-[0_8px_20px_rgba(14,140,111,0.25)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97] disabled:cursor-not-allowed mt-1"
+        className="mt-0.5 h-[52px] w-full flex items-center justify-center gap-2.5 rounded-[11px] bg-wv-teal text-[15.5px] font-extrabold text-white shadow-[0_8px_22px_rgba(14,140,111,0.26)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97] disabled:cursor-not-allowed"
       >
         {pending && (
           <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-[spin_500ms_linear_infinite]" />
         )}
-        {pending ? "Verificando…" : "Entrar"}
+        {pending ? "Verificando…" : "Entrar al panel"}
       </button>
     </form>
   );

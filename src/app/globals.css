@@ -63,6 +63,23 @@
   --color-wv-chaos-bg: #f8e9e4;
   --color-wv-chaos-ink: #a34b3c;
   --color-wv-chaos-border: #e9deda;
+  --color-wv-mint-light: #7fe7cc;
+  --color-wv-track: #eaf1ee;
+
+  /* WicoVet dashboard — app-shell tones (light-only, same rationale as
+     the landing palette above: the admin UI keeps its own fixed theme). */
+  --color-wv-canvas: #f4f8f6;
+  --color-wv-sidebar-muted: #9fb6c9;
+  --color-wv-navy-line: #1d4a70;
+  --color-wv-teal-deep: #0b6e58;
+  --color-wv-mint-ink: #06231b;
+  --color-wv-row-border: #edf3f0;
+  --color-wv-mint-wash: #f4fbf8;
+  --color-wv-info-bg: #e3eefb;
+  --color-wv-info-ink: #2a5b8f;
+  --color-wv-btn-border: #d4e2dd;
+  --color-wv-mint-pale: #cfe9e0;
+  --color-wv-mint-mid: #9bd6c4;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -161,6 +178,21 @@
   --color-wv-chaos-bg: var(--color-wv-chaos-bg);
   --color-wv-chaos-ink: var(--color-wv-chaos-ink);
   --color-wv-chaos-border: var(--color-wv-chaos-border);
+  --color-wv-mint-light: var(--color-wv-mint-light);
+  --color-wv-track: var(--color-wv-track);
+
+  --color-wv-canvas: var(--color-wv-canvas);
+  --color-wv-sidebar-muted: var(--color-wv-sidebar-muted);
+  --color-wv-navy-line: var(--color-wv-navy-line);
+  --color-wv-teal-deep: var(--color-wv-teal-deep);
+  --color-wv-mint-ink: var(--color-wv-mint-ink);
+  --color-wv-row-border: var(--color-wv-row-border);
+  --color-wv-mint-wash: var(--color-wv-mint-wash);
+  --color-wv-info-bg: var(--color-wv-info-bg);
+  --color-wv-info-ink: var(--color-wv-info-ink);
+  --color-wv-btn-border: var(--color-wv-btn-border);
+  --color-wv-mint-pale: var(--color-wv-mint-pale);
+  --color-wv-mint-mid: var(--color-wv-mint-mid);
 
   --font-heading: var(--font-jakarta);
   --font-body: var(--font-jakarta);

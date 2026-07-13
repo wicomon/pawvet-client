@@ -32,6 +32,7 @@ export async function login(
     email: String(formData.get("email") ?? ""),
     password: String(formData.get("password") ?? ""),
   };
+  const remember = formData.get("remember") === "on";
 
   try {
     await LoginSchema.validate(values, { abortEarly: false });
@@ -71,7 +72,7 @@ export async function login(
       return { message: "No se pudo iniciar sesión. Intenta de nuevo." };
     }
 
-    await createSession(data.authLogin.token);
+    await createSession(data.authLogin.token, { remember });
   } catch {
     return { message: "Ocurrió un error inesperado." };
   }
