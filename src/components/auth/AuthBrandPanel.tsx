@@ -1,5 +1,6 @@
 import Link from "next/link";
-import PawMark from "@/components/landing/PawMark";
+import BrandIcon from "@/components/brand/BrandIcon";
+import { BRAND } from "@/components/landing/content";
 import { AUTH_IMAGE, BRAND_PANEL } from "./content";
 
 // Left-hand image panel of the split-screen auth layout. Hidden below `lg`
@@ -25,10 +26,10 @@ export default function AuthBrandPanel() {
           className="inline-flex w-fit items-center gap-2.5 rounded-[10px] outline-none focus-visible:shadow-focus"
         >
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-wv-mint">
-            <PawMark size={20} color="var(--color-wv-navy)" />
+            <BrandIcon size={20} tone="navy" />
           </span>
           <span className="font-heading text-[21px] font-bold text-white">
-            WicoVet
+            {BRAND}
           </span>
         </Link>
 

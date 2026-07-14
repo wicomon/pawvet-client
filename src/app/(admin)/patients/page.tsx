@@ -4,5 +4,5 @@ import { redirect } from "next/navigation";
 // record). Redirect to it so the sidebar's "Pacientes" link is functional
 // instead of a dead end.
 export default function PatientsIndexPage() {
-  redirect("/dashboard/patients/rocky");
+  redirect("/patients/rocky");
 }

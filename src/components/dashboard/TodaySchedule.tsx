@@ -7,7 +7,7 @@ export default function TodaySchedule() {
       <div className="flex items-center justify-between">
         <h2 className="font-heading text-[17px] font-bold text-wv-navy">Agenda de hoy</h2>
         <Link
-          href="/dashboard/schedule"
+          href="/schedule"
           className="text-[13.5px] font-extrabold text-wv-teal outline-none transition-colors duration-150 ease-out hover:text-wv-teal-hover focus-visible:shadow-focus"
         >
           Ver semana →
@@ -29,7 +29,7 @@ export default function TodaySchedule() {
               </span>
               <div className="flex min-w-40 flex-1 flex-col gap-0.5">
                 <Link
-                  href={`/dashboard/patients/${patientSlug(appt.pet)}`}
+                  href={`/patients/${patientSlug(appt.pet)}`}
                   className="text-left text-[14.5px] font-extrabold text-wv-navy outline-none transition-colors duration-150 ease-out hover:text-wv-teal focus-visible:shadow-focus"
                 >
                   {appt.pet} · {appt.species}

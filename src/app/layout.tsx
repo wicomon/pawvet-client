@@ -22,7 +22,7 @@ const jakarta = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Vdemia",
+  title: "PawControl",
   description: "Cursos, entregas y progreso para alumnos y docentes.",
 };
 

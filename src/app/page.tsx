@@ -10,9 +10,9 @@ import Footer from "@/components/landing/Footer";
 import WhatsAppFab from "@/components/landing/WhatsAppFab";
 
 // Own metadata: the landing is a distinct public page from the rest of the
-// app (which is titled "Vdemia" in the root layout).
+// app (which is titled "PawControl" in the root layout).
 export const metadata: Metadata = {
-  title: "WicoVet — Gestión para clínicas veterinarias",
+  title: "PawControl — Gestión para clínicas veterinarias",
   description:
     "El sistema de gestión en la nube para clínicas veterinarias y pet shops del Perú: expedientes, citas y caja en un solo lugar.",
 };

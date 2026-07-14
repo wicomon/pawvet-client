@@ -51,9 +51,9 @@ export default async function Image() {
                 fontWeight: 700,
               }}
             >
-              V
+              P
             </div>
-            <div style={{ fontSize: 32, fontWeight: 700 }}>Vdemia</div>
+            <div style={{ fontSize: 32, fontWeight: 700 }}>PawControl</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
             <div style={{ fontSize: 58, fontWeight: 800, lineHeight: 1.15 }}>

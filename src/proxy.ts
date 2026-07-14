@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-// Routes that require an authenticated session.
-const PROTECTED_PREFIXES = ["/dashboard"];
+import { ADMIN_ROUTE_PREFIXES } from "@/lib/adminRoutes";
 
 // Optimistic check only: Proxy runs on every route, including prefetched
 // ones, so it must only read the session cookie and never hit the backend
@@ -11,7 +9,7 @@ const PROTECTED_PREFIXES = ["/dashboard"];
 // the backend on every render.
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const isProtected = PROTECTED_PREFIXES.some((prefix) =>
+  const isProtected = ADMIN_ROUTE_PREFIXES.some((prefix) =>
     pathname.startsWith(prefix)
   );
 

@@ -1,6 +1,6 @@
 // Sample data for the pet expediente (patient record) view. Every patient
 // route currently resolves to this same demo record — the patients module
-// isn't wired to the backend yet (see src/app/dashboard/patients/[id]/page.tsx).
+// isn't wired to the backend yet (see src/app/(admin)/patients/[id]/page.tsx).
 
 import type { AppointmentStatus } from "../content";
 

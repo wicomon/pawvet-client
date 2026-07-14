@@ -17,7 +17,7 @@ export default function DaySelector({ selectedDay }: DaySelectorProps) {
         return (
           <Link
             key={day.name}
-            href={`/dashboard/schedule?day=${index}`}
+            href={`/schedule?day=${index}`}
             aria-current={active ? "page" : undefined}
             className={`flex min-w-[86px] shrink-0 flex-col items-center gap-0.5 rounded-xl border-[1.5px] px-3 py-2.5 outline-none focus-visible:shadow-focus ${
               active

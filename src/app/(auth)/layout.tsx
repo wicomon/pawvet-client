@@ -1,6 +1,7 @@
 import Link from "next/link";
-import PawMark from "@/components/landing/PawMark";
+import BrandIcon from "@/components/brand/BrandIcon";
 import AuthBrandPanel from "@/components/auth/AuthBrandPanel";
+import { BRAND } from "@/components/landing/content";
 
 export default function AuthLayout({
   children,
@@ -18,10 +19,10 @@ export default function AuthLayout({
             className="flex lg:hidden items-center justify-center gap-2.5 rounded-[10px] outline-none focus-visible:shadow-focus"
           >
             <span className="grid h-[34px] w-[34px] place-items-center rounded-xl bg-wv-navy">
-              <PawMark size={20} color="var(--color-wv-mint)" />
+              <BrandIcon size={20} tone="verde" />
             </span>
             <span className="font-heading text-xl font-bold text-wv-navy">
-              WicoVet
+              {BRAND}
             </span>
           </Link>
 

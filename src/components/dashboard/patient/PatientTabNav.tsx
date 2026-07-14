@@ -25,7 +25,7 @@ export default function PatientTabNav({ patientId, activeTab }: PatientTabNavPro
         return (
           <Link
             key={tab.key}
-            href={`/dashboard/patients/${patientId}?tab=${tab.key}`}
+            href={`/patients/${patientId}?tab=${tab.key}`}
             aria-current={active ? "page" : undefined}
             className={`rounded-[10px] border-[1.5px] px-[18px] py-2.5 text-sm font-bold outline-none focus-visible:shadow-focus ${
               active

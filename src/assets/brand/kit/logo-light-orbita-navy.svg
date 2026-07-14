@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 64" fill="none">
+  <text x="0" y="46" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif" font-weight="700" font-size="36" letter-spacing="-0.7" fill="#0B2B45">PawC</text>
+  <circle cx="110" cy="34" r="13" fill="none" stroke="#0B2B45" stroke-width="3.2"></circle>
+  <circle cx="120.5" cy="26" r="3.4" fill="#17BE9A"></circle>
+  <ellipse cx="110" cy="37" rx="4.6" ry="4.1" fill="#0B2B45"></ellipse>
+  <ellipse cx="104.5" cy="30.5" rx="1.9" ry="2.3" fill="#0B2B45"></ellipse>
+  <ellipse cx="110" cy="28.5" rx="1.9" ry="2.3" fill="#0B2B45"></ellipse>
+  <ellipse cx="115.5" cy="30.5" rx="1.9" ry="2.3" fill="#0B2B45"></ellipse>
+  <text x="125" y="46" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif" font-weight="700" font-size="36" letter-spacing="-0.7" fill="#0B2B45">ntrol</text>
+</svg>

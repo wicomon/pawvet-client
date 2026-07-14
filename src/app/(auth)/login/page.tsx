@@ -6,7 +6,7 @@ import RegisterForm from "@/components/auth/RegisterForm";
 import { authCopy, type AuthMode } from "@/components/auth/content";
 
 export const metadata: Metadata = {
-  title: "Acceso — WicoVet",
+  title: "Acceso — PawControl",
 };
 
 export default async function LoginPage({

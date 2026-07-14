@@ -66,7 +66,7 @@ export default function WeekGrid({ appointments }: WeekGridProps) {
                   return (
                     <Link
                       key={`${appt.time}-${appt.pet}`}
-                      href={`/dashboard/patients/${patientSlug(appt.pet)}`}
+                      href={`/patients/${patientSlug(appt.pet)}`}
                       style={{
                         top: (minutesFromStart(appt.time) / 60) * HOUR_HEIGHT_PX + 1,
                         height: (appt.duration / 60) * HOUR_HEIGHT_PX - 5,

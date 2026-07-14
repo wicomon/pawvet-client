@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PawMark from "./PawMark";
+import BrandIcon from "@/components/brand/BrandIcon";
 import { BRAND } from "./content";
 
 export default function Header() {
@@ -8,7 +8,7 @@ export default function Header() {
       <div className="mx-auto flex h-[68px] max-w-[1160px] items-center justify-between gap-6 px-6 sm:px-8">
         <Link href="/" className="flex items-center gap-2.5">
           <span className="grid h-[34px] w-[34px] place-items-center rounded-[10px] bg-wv-navy">
-            <PawMark size={20} color="var(--color-wv-mint)" />
+            <BrandIcon size={20} tone="verde" />
           </span>
           <span className="font-heading text-base font-bold text-wv-navy sm:text-xl">
             {BRAND}

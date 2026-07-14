@@ -29,14 +29,14 @@ export type NavItem = {
 // modules.
 export const NAV_ITEMS: NavItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutGrid, enabled: true },
-  { label: "Agenda", href: "/dashboard/schedule", icon: CalendarDays, enabled: true },
-  { label: "Pacientes", href: "/dashboard/patients", icon: PawPrint, enabled: true },
-  { label: "Clientes", href: "/dashboard/clientes", icon: Users },
-  { label: "Caja / POS", href: "/dashboard/caja", icon: Wallet },
-  { label: "Inventario", href: "/dashboard/inventario", icon: Package, badge: "3" },
-  { label: "Recordatorios", href: "/dashboard/recordatorios", icon: Bell },
-  { label: "Reportes", href: "/dashboard/reportes", icon: BarChart3 },
-  { label: "Configuración", href: "/dashboard/configuracion", icon: Settings },
+  { label: "Agenda", href: "/schedule", icon: CalendarDays, enabled: true },
+  { label: "Pacientes", href: "/patients", icon: PawPrint, enabled: true },
+  { label: "Clientes", href: "/clientes", icon: Users },
+  { label: "Caja / POS", href: "/caja", icon: Wallet },
+  { label: "Inventario", href: "/inventario", icon: Package, badge: "3" },
+  { label: "Recordatorios", href: "/recordatorios", icon: Bell },
+  { label: "Reportes", href: "/reportes", icon: BarChart3 },
+  { label: "Configuración", href: "/configuracion", icon: Settings },
 ];
 
 // Sample patient records aren't backed by the GraphQL API yet, so every

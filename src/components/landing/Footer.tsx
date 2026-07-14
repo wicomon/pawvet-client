@@ -1,4 +1,4 @@
-import PawMark from "./PawMark";
+import BrandIcon from "@/components/brand/BrandIcon";
 import { BRAND, SALES_EMAIL, whatsappUrl } from "./content";
 
 export default function Footer() {
@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="flex max-w-[300px] flex-col gap-3.5">
             <div className="flex items-center gap-2.5">
               <span className="grid h-[30px] w-[30px] place-items-center rounded-[9px] bg-wv-mint">
-                <PawMark size={16} color="var(--color-wv-navy-deep)" />
+                <BrandIcon size={16} tone="navy" />
               </span>
               <span className="font-heading text-lg font-bold text-white">
                 {BRAND}

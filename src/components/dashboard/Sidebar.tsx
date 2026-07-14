@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import PawMark from "@/components/landing/PawMark";
+import BrandIcon from "@/components/brand/BrandIcon";
+import { BRAND } from "@/components/landing/content";
 import { logout } from "@/app/actions/auth";
 import { NAV_ITEMS } from "./content";
 
@@ -35,9 +36,9 @@ export default function Sidebar({
     >
       <Link href="/dashboard" className="flex items-center gap-2.5 px-2.5 py-1" onClick={onClose}>
         <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-wv-mint">
-          <PawMark size={18} color="var(--color-wv-navy)" />
+          <BrandIcon size={18} tone="navy" />
         </span>
-        <span className="font-heading text-lg font-bold text-white">VetFlow</span>
+        <span className="font-heading text-lg font-bold text-white">{BRAND}</span>
       </Link>
 
       <nav className="flex flex-1 flex-col gap-1 overflow-y-auto">

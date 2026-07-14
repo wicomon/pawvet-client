@@ -2,7 +2,7 @@
 // component redefines the same string/number twice (brand name, prices,
 // WhatsApp number, module copy).
 
-export const BRAND = "WicoVet";
+export const BRAND = "PawControl";
 export const BRAND_DOMAIN = "wicovet.pe";
 export const SALES_EMAIL = `hola@${BRAND_DOMAIN}`;
 
