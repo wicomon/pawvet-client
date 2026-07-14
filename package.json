@@ -1,5 +1,5 @@
 {
-  "name": "pawvet-client",
+  "name": "pawcontrol-client",
   "version": "0.1.0",
   "description": "Multi-tenant SaaS for veterinary & pet shop management",
   "private": true,
