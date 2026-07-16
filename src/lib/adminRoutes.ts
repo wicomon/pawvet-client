@@ -7,6 +7,8 @@ export const ADMIN_ROUTE_PREFIXES = [
   "/dashboard",
   "/schedule",
   "/patients",
+  "/menus",
+  "/roles",
   "/clientes",
   "/caja",
   "/inventario",

@@ -51,3 +51,8 @@ export function resolveMenuIcon(icon?: string | null): LucideIcon {
   if (!icon) return FALLBACK_ICON;
   return MENU_ICONS[icon] ?? FALLBACK_ICON;
 }
+
+// Selectable icon names for the /menus admin form's icon picker
+// (src/components/menus/menuFormConfig.ts) — derived from the same map
+// instead of a second hardcoded list, so the two can't drift apart.
+export const MENU_ICON_NAMES = Object.keys(MENU_ICONS);

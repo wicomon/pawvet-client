@@ -1,5 +1,6 @@
 import { getUser } from "@/lib/dal";
 import DashboardShell from "@/components/dashboard/DashboardShell";
+import ApolloWrapper from "@/lib/apollo/ApolloWrapper";
 
 export default async function DashboardLayout({
   children,
@@ -26,7 +27,7 @@ export default async function DashboardLayout({
         organizationName={organizationName}
         menus={menus}
       >
-        {children}
+        <ApolloWrapper>{children}</ApolloWrapper>
       </DashboardShell>
     </div>
   );

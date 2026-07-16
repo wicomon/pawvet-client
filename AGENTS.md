@@ -18,3 +18,8 @@ Your training data is outdated — the docs are the source of truth.
   `src/proxy.ts` only does the optimistic redirect — real authorization happens in the DAL.
 - GraphQL talks to pawvet-server; queries/mutations live in `src/graphql/*.gql.ts`.
 - Route params and `searchParams` are Promises in this Next.js version — always `await` them.
+- Tables: use `@tanstack/react-table` via the shared wrapper `src/components/ui/DataTable.tsx`
+  (headless — styled with `wv-*` tokens, not a component library). Define a `ColumnDef<T>[]` for
+  the screen and pass it with `data`; don't hand-roll table markup. See
+  `src/components/menus/menuColumns.tsx` + `MenuTable.tsx` for the reference usage, including
+  nested rows via `getSubRows`.

@@ -50,10 +50,22 @@ re-implementing session/token handling elsewhere.
 
 ### GraphQL
 
-Queries/mutations are plain `gql` tagged templates in `src/graphql/*.gql.ts` (e.g. `auth.gql.ts`).
-They're consumed by printing them with `print()` from the `graphql` package and POSTing to
-`NEXT_PUBLIC_BACKEND_URL` with raw `fetch` — there is currently no Apollo Client (or other GraphQL
-client) instance in the app; `@apollo/client` is only used for its `gql` tag.
+Queries/mutations are plain `gql` tagged templates in `src/graphql/*.gql.ts` (e.g. `auth.gql.ts`,
+`menu.gql.ts`). Server-side code (DAL, Server Actions) prints them with `print()` from the
+`graphql` package and POSTs to `NEXT_PUBLIC_BACKEND_URL` with raw `fetch` — this is still the
+default and should stay so for any new server-rendered page.
+
+Client Components that need live query/mutation state (e.g. `src/components/menus/*`, the first
+CRUD screen with real interactivity) use a real Apollo Client instance instead
+(`src/lib/apollo/client.ts` + `ApolloWrapper.tsx`). The provider is mounted once in
+`src/app/(admin)/layout.tsx`, scoped to the `(admin)` route group (dashboard, patients, schedule,
+menus, …) — not the whole app. Routes outside `(admin)` (landing, login) stay server-first with raw
+`fetch` and never load the Apollo runtime. Its `HttpLink` points at **`/api/gql`**, a same-origin
+Route Handler (`src/app/api/gql/route.ts`), never at `NEXT_PUBLIC_BACKEND_URL` directly — the
+`session` cookie is `httpOnly`, so browser JS can't attach it as a `Bearer` token itself. The route
+handler reads the cookie server-side via `getSessionToken()` and forwards
+`Authorization: Bearer <token>` to the backend, so the JWT never reaches client-side JS. Any new
+page under `(admin)` gets Apollo Client for free from the layout; don't re-wrap it locally.
 
 ### Design tokens
 
