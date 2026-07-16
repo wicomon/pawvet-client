@@ -1,43 +1,10 @@
 // Shared copy/data for the dashboard shell and the Dashboard view. Centralized
-// here so no component redefines the same nav item, status label or sample
-// row twice — mirrors src/components/landing/content.ts.
-
-import type { LucideIcon } from "lucide-react";
-import {
-  LayoutGrid,
-  CalendarDays,
-  PawPrint,
-  Users,
-  Wallet,
-  Package,
-  Bell,
-  BarChart3,
-  Settings,
-} from "lucide-react";
-
-export type NavItem = {
-  label: string;
-  href: string;
-  icon: LucideIcon;
-  badge?: string;
-  enabled?: boolean;
-};
-
-// Only routes with a real page set `enabled`. The rest render as disabled
-// entries ("próximamente") instead of dead links, so the sidebar can show
-// the full information architecture without shipping 404s for unbuilt
-// modules.
-export const NAV_ITEMS: NavItem[] = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutGrid, enabled: true },
-  { label: "Agenda", href: "/schedule", icon: CalendarDays, enabled: true },
-  { label: "Pacientes", href: "/patients", icon: PawPrint, enabled: true },
-  { label: "Clientes", href: "/clientes", icon: Users },
-  { label: "Caja / POS", href: "/caja", icon: Wallet },
-  { label: "Inventario", href: "/inventario", icon: Package, badge: "3" },
-  { label: "Recordatorios", href: "/recordatorios", icon: Bell },
-  { label: "Reportes", href: "/reportes", icon: BarChart3 },
-  { label: "Configuración", href: "/configuracion", icon: Settings },
-];
+// here so no component redefines the same status label or sample row twice —
+// mirrors src/components/landing/content.ts.
+//
+// Nav items are no longer defined here: the sidebar renders `user.menus` from
+// `authUserInfo` (see src/components/dashboard/Sidebar.tsx and
+// src/components/dashboard/menuIcons.ts for the icon-name resolver).
 
 // Sample patient records aren't backed by the GraphQL API yet, so every
 // pet name resolves to the same demo record (see components/dashboard/patient).

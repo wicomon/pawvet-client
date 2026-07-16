@@ -3,12 +3,14 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import type { MenuSummary } from "@/types/user";
 
 type DashboardShellProps = {
   children: React.ReactNode;
   userName: string;
   userInitials: string;
   organizationName: string;
+  menus: MenuSummary[];
 };
 
 // Client Component boundary for the app shell's mobile-drawer state. `children`
@@ -20,6 +22,7 @@ export default function DashboardShell({
   userName,
   userInitials,
   organizationName,
+  menus,
 }: DashboardShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -39,6 +42,7 @@ export default function DashboardShell({
         userName={userName}
         userInitials={userInitials}
         organizationName={organizationName}
+        menus={menus}
       />
 
       <div className="flex min-w-0 flex-1 flex-col">

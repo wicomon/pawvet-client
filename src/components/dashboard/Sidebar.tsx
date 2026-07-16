@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import BrandIcon from "@/components/brand/BrandIcon";
 import { BRAND } from "@/components/landing/content";
 import { logout } from "@/app/actions/auth";
-import { NAV_ITEMS } from "./content";
+import { resolveMenuIcon } from "./menuIcons";
+import type { MenuSummary } from "@/types/user";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -13,6 +14,7 @@ type SidebarProps = {
   userName: string;
   userInitials: string;
   organizationName: string;
+  menus: MenuSummary[];
 };
 
 // Client Component: needs usePathname() for the active nav state (see
@@ -24,6 +26,7 @@ export default function Sidebar({
   userName,
   userInitials,
   organizationName,
+  menus,
 }: SidebarProps) {
   const pathname = usePathname();
 
@@ -42,39 +45,20 @@ export default function Sidebar({
       </Link>
 
       <nav className="flex flex-1 flex-col gap-1 overflow-y-auto">
-        {NAV_ITEMS.map((item) => {
+        {menus.map((item) => {
           // "/dashboard" itself must match exactly — every nested route
-          // (schedule, patients/[id]) also starts with it and would
-          // otherwise keep it highlighted everywhere.
+          // also starts with it and would otherwise keep it highlighted
+          // everywhere.
           const active =
-            item.href === "/dashboard"
+            item.path === "/dashboard"
               ? pathname === "/dashboard"
-              : pathname.startsWith(item.href);
-          const Icon = item.icon;
-
-          if (!item.enabled) {
-            return (
-              <span
-                key={item.label}
-                aria-disabled="true"
-                title="Próximamente"
-                className="flex w-full cursor-not-allowed items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-bold text-wv-sidebar-muted/50"
-              >
-                <Icon aria-hidden="true" className="h-5 w-5 shrink-0" strokeWidth={2} />
-                <span className="flex-1 text-left">{item.label}</span>
-                {item.badge && (
-                  <span className="rounded-full bg-white/10 px-[7px] py-0.5 text-[11px] font-extrabold text-wv-sidebar-muted">
-                    {item.badge}
-                  </span>
-                )}
-              </span>
-            );
-          }
+              : pathname.startsWith(item.path);
+          const Icon = resolveMenuIcon(item.icon);
 
           return (
             <Link
-              key={item.label}
-              href={item.href}
+              key={item.id}
+              href={item.path}
               onClick={onClose}
               aria-current={active ? "page" : undefined}
               className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-bold outline-none transition-colors duration-150 ease-out focus-visible:shadow-focus ${
@@ -89,12 +73,7 @@ export default function Sidebar({
                 color={active ? "var(--color-wv-mint)" : "var(--color-wv-sidebar-muted)"}
                 strokeWidth={2}
               />
-              <span className="flex-1 text-left">{item.label}</span>
-              {item.badge && (
-                <span className="rounded-full bg-wv-mint px-[7px] py-0.5 text-[11px] font-extrabold text-wv-mint-ink">
-                  {item.badge}
-                </span>
-              )}
+              <span className="flex-1 text-left">{item.name}</span>
             </Link>
           );
         })}

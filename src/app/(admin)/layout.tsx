@@ -16,6 +16,7 @@ export default async function DashboardLayout({
     ? `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
     : "US";
   const organizationName = user?.organization.name ?? "";
+  const menus = [...(user?.menus ?? [])].sort((a, b) => a.order - b.order);
 
   return (
     <div className="bg-wv-canvas font-body text-wv-ink">
@@ -23,6 +24,7 @@ export default async function DashboardLayout({
         userName={userName}
         userInitials={userInitials}
         organizationName={organizationName}
+        menus={menus}
       >
         {children}
       </DashboardShell>

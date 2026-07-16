@@ -1,8 +1,8 @@
 // Prefijos de URL del panel admin (src/app/(admin)/) protegidos por el
-// chequeo optimista del proxy (src/proxy.ts). Mantener en sync con las rutas
-// enabled/disabled de NAV_ITEMS en src/components/dashboard/content.ts —
-// cada entrada del nav debe tener su prefijo protegido aquí, incluso si la
-// página aún no existe.
+// chequeo optimista del proxy (src/proxy.ts). El sidebar ahora renderiza
+// `user.menus` (authUserInfo, vía src/components/dashboard/Sidebar.tsx) en
+// vez de un array estático — mantener esta lista en sync con los `path` que
+// sirva el backend, incluso si la página del cliente aún no existe.
 export const ADMIN_ROUTE_PREFIXES = [
   "/dashboard",
   "/schedule",

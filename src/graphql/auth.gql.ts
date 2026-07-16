@@ -30,6 +30,28 @@ export const AUTH_USER_INFO = gql`
         canUpdate
         canDelete
       }
+      menus {
+        id
+        name
+        code
+        path
+        type
+        position
+        order
+        icon
+        description
+        subMenu {
+          id
+          name
+          code
+          path
+          type
+          position
+          order
+          icon
+          description
+        }
+      }
     }
   }
 `;
