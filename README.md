@@ -36,23 +36,54 @@ There is no test suite configured in this repo (no test script/framework in `pac
 
 ## Project structure
 
+Page-specific components are **colocated** with the route that uses them, in a private
+`_components/` folder next to `page.tsx`/`layout.tsx` (Next.js excludes `_`-prefixed folders from
+routing, so these are never publicly reachable). Only components genuinely shared across routes
+live in `src/components/`. Shared copy/data live in `src/content/`; cross-cutting helpers live in
+`src/lib/`.
+
 ```
 src/
   app/
-    actions/auth.ts    # Server Actions: login, logout
-    dashboard/         # protected route (Server Component, no client-side fetching)
-    login/             # login form (Client Component, useActionState)
-    layout.tsx          # root layout, next/font setup
-    globals.css          # design tokens (CSS vars + Tailwind v4 @theme)
+    actions/auth.ts             # Server Actions: login, logout
+    api/gql/route.ts            # same-origin GraphQL proxy for Client Components
+    (marketing)/                # landing page route group
+      page.tsx
+      _components/              # Header, Hero, Modules, Pricing, Footer, …
+    (auth)/
+      layout.tsx  login/page.tsx
+      _components/              # AuthBrandPanel, AuthModeTabs, LoginForm, RegisterForm, content.ts
+    (admin)/                    # protected routes, Apollo Client mounted once in layout.tsx
+      layout.tsx
+      dashboard/page.tsx
+        _components/            # DashboardGreeting, KpiGrid, DueVaccines, RecentSales, …
+      patients/page.tsx  patients/[id]/page.tsx
+        _components/            # PatientHeader, ClinicalHistory, VaccineTable, content.ts, …
+      schedule/page.tsx
+        _components/            # DaySelector, WeekGrid, ScheduleEmptyState, content.ts
+      menus/page.tsx
+        _components/            # MenusManager, MenuTable, menuColumns.tsx, …
+      roles/page.tsx
+        _components/            # RolesManager, RoleTable, AssignMenusForm, roleColumns.tsx, …
+    layout.tsx                  # root layout, next/font setup
+    globals.css                 # design tokens (CSS vars + Tailwind v4 @theme)
+  components/                  # SHARED components only
+    ui/                         # DataTable, Modal, FormModal, Alert (headless wrappers)
+    forms/fields/               # TextField, SelectField, CheckboxField, SubmitButton
+    brand/                      # BrandIcon
+    layout/                     # admin shell: DashboardShell, Sidebar, Topbar
+  content/                      # shared copy/data (e.g. brand.ts, dashboard.ts)
   lib/
-    dal.ts              # Data Access Layer — the real authorization boundary
-    session.ts          # server-only cookie helpers
-    isLogged.ts         # raw fetch against authValidateToken
+    dal.ts                      # Data Access Layer — the real authorization boundary
+    session.ts                  # server-only cookie helpers
+    isLogged.ts                 # raw fetch against authValidateToken
+    menuIcons.ts                # icon-name (string) → lucide-react component resolver
+    apollo/                     # Apollo Client instance + ApolloWrapper (scoped to (admin))
   graphql/
-    auth.gql.ts         # gql tagged templates (queries/mutations)
+    auth.gql.ts, menu.gql.ts, role.gql.ts   # gql tagged templates, typed as TypedDocumentNode
   types/
-    user.ts
-  proxy.ts               # edge-runtime optimistic auth redirect
+    user.ts, menu.ts, role.ts
+  proxy.ts                       # edge-runtime optimistic auth redirect
 ```
 
 ## Auth infrastructure
@@ -74,11 +105,11 @@ Auth is split across several layers with distinct responsibilities:
   validates with Yup, calls the backend `authLogin` mutation via raw `fetch`, then
   `createSession()` and `redirect("/dashboard")`. `logout` calls `deleteSession()` and redirects
   to `/login`.
-- **`src/app/login/page.tsx`** — Client Component using `useActionState(login, ...)` against a
-  plain `<form action={...}>` (progressive-enhancement pattern, no client GraphQL/cookie
-  libraries involved).
-- **`src/app/dashboard/page.tsx`** — Server Component; calls `getUser()` from the DAL directly
-  and renders a `<form action={logout}>` button. No client-side data fetching.
+- **`src/app/(auth)/login/page.tsx`** — Client Component using `useActionState(login, ...)`
+  against a plain `<form action={...}>` (progressive-enhancement pattern, no client GraphQL/
+  cookie libraries involved).
+- **`src/app/(admin)/dashboard/page.tsx`** — Server Component; calls `getUser()` from the DAL
+  directly and renders a `<form action={logout}>` button. No client-side data fetching.
 
 Net effect: nothing under `/dashboard` fetches data or checks auth on the client. If you add a
 new protected route or a new piece of user data, **extend the DAL** (`src/lib/dal.ts`) rather
@@ -86,10 +117,18 @@ than re-implementing session/token handling elsewhere.
 
 ## GraphQL
 
-Queries/mutations are plain `gql` tagged templates in `src/graphql/*.gql.ts` (e.g.
-`auth.gql.ts`). They're consumed by printing them with `print()` from the `graphql` package and
-POSTing to `NEXT_PUBLIC_BACKEND_URL` with raw `fetch` — there is currently no Apollo Client (or
-other GraphQL client) instance in the app; `@apollo/client` is only used for its `gql` tag.
+Queries/mutations are plain `gql` tagged templates in `src/graphql/*.gql.ts`, each typed as
+`TypedDocumentNode<Data, Variables>`. Server-side code (DAL, Server Actions) prints them with
+`print()` from the `graphql` package and POSTs to `NEXT_PUBLIC_BACKEND_URL` with raw `fetch` —
+this is still the default for any server-rendered page.
+
+Client Components that need live query/mutation state (the `(admin)` route group — menus, roles,
+…) use a real Apollo Client instance instead (`src/lib/apollo/client.ts` +
+`src/lib/apollo/ApolloWrapper.tsx`), mounted once in `src/app/(admin)/layout.tsx`. Its `HttpLink`
+points at `/api/gql`, a same-origin Route Handler, never at `NEXT_PUBLIC_BACKEND_URL` directly —
+the `session` cookie is `httpOnly`, so the route handler attaches
+`Authorization: Bearer <token>` server-side and the JWT never reaches client-side JS. Routes
+outside `(admin)` (marketing, login) stay server-first and never load the Apollo runtime.
 
 ## Design tokens
 
