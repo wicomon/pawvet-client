@@ -6,8 +6,7 @@ import { MENU_FIND_ALL } from "@/graphql/menu.gql";
 import { ROLE_ASSIGN_MENUS, ROLE_FIND_ALL_WITH_MENU } from "@/graphql/role.gql";
 import Modal from "@/components/ui/Modal";
 import SubmitButton from "@/components/forms/fields/SubmitButton";
-import type { Menu } from "@/types/menu";
-import type { AssignMenuInput, Role } from "@/types/role";
+import type { Role } from "@/types/role";
 
 type AssignMenusModalProps = {
   role: Role;
@@ -25,15 +24,14 @@ type AssignMenusModalProps = {
 // `role.menus` (returned by roleFindAllWithMenu) rather than a separate
 // query, so opening this modal never needs an extra round trip.
 export default function AssignMenusModal({ role, onClose, onSaved, onError }: AssignMenusModalProps) {
-  const { data, loading, error } = useQuery<{ menuFindAll: Menu[] }>(MENU_FIND_ALL);
+  const { data, loading, error } = useQuery(MENU_FIND_ALL);
   const [selected, setSelected] = useState<Set<string>>(
     () => new Set(role.menus?.map((menu) => menu.id) ?? [])
   );
   const [pending, setPending] = useState(false);
-  const [assignMenus] = useMutation<
-    { roleAssignMenus: boolean },
-    { assignMenuInput: AssignMenuInput }
-  >(ROLE_ASSIGN_MENUS, { refetchQueries: [ROLE_FIND_ALL_WITH_MENU] });
+  const [assignMenus] = useMutation(ROLE_ASSIGN_MENUS, {
+    refetchQueries: [ROLE_FIND_ALL_WITH_MENU],
+  });
 
   const menus = [...(data?.menuFindAll ?? [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 

@@ -1,16 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { getUser } from "@/lib/dal";
 import RolesManager from "@/components/roles/RolesManager";
 
-export const metadata: Metadata = {
-  title: "Roles — VetFlow",
-};
-
-// Mirrors src/app/(admin)/menus/page.tsx: same soft "ROOT only" gate — the
-// real enforcement lives in pawvet-server (@CurrentUser([ValidRoles.ROOT])
-// on every roleFindAllWithMenu/roleCreate/roleUpdate/roleRemove/roleAssignMenus
-// resolver), this is just the UI fallback.
 export default async function RolesPage() {
   const user = await getUser();
   const isRoot = user?.role.slug === "root";

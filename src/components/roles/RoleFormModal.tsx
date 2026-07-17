@@ -37,14 +37,12 @@ function toMutationInput(values: RoleFormValues): CreateRoleInput {
 // Formik + Yup form, mirroring src/components/menus/MenuFormModal.tsx.
 export default function RoleFormModal({ role, onClose, onSaved, onError }: RoleFormModalProps) {
   const isEdit = Boolean(role);
-  const [createRole] = useMutation<
-    { roleCreate: boolean },
-    { createRoleInput: CreateRoleInput }
-  >(ROLE_CREATE, { refetchQueries: [ROLE_FIND_ALL_WITH_MENU] });
-  const [updateRole] = useMutation<
-    { roleUpdate: boolean },
-    { updateRoleInput: UpdateRoleInput }
-  >(ROLE_UPDATE, { refetchQueries: [ROLE_FIND_ALL_WITH_MENU] });
+  const [createRole] = useMutation(ROLE_CREATE, {
+    refetchQueries: [ROLE_FIND_ALL_WITH_MENU],
+  });
+  const [updateRole] = useMutation(ROLE_UPDATE, {
+    refetchQueries: [ROLE_FIND_ALL_WITH_MENU],
+  });
 
   const initialValues = role ? roleToFormValues(role) : emptyRoleFormValues;
 

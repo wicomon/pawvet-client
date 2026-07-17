@@ -16,7 +16,12 @@ Your training data is outdated — the docs are the source of truth.
   Login runs as a Server Action (`src/app/actions/auth.ts`). Session/role checks go through the
   Data Access Layer in `src/lib/dal.ts` (`verifySession`, `getUser`, memoized with React's `cache`).
   `src/proxy.ts` only does the optimistic redirect — real authorization happens in the DAL.
-- GraphQL talks to pawvet-server; queries/mutations live in `src/graphql/*.gql.ts`.
+- GraphQL talks to pawvet-server; queries/mutations live in `src/graphql/*.gql.ts`. Type every
+  document as `TypedDocumentNode<Data, Variables>` (from `@apollo/client`) at its definition,
+  using the shared types from `src/types/*.ts`. Never pass manual generics to `useQuery`/
+  `useMutation` in components — Apollo Client 4 deprecated that overload; let the typed document
+  drive inference instead (`useQuery(MY_QUERY)`, not `useQuery<Data>(MY_QUERY)`). See
+  `src/graphql/role.gql.ts` / `menu.gql.ts` for the pattern.
 - Route params and `searchParams` are Promises in this Next.js version — always `await` them.
 - Tables: use `@tanstack/react-table` via the shared wrapper `src/components/ui/DataTable.tsx`
   (headless — styled with `wv-*` tokens, not a component library). Define a `ColumnDef<T>[]` for

@@ -1,11 +1,6 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { getUser } from "@/lib/dal";
 import MenusManager from "@/components/menus/MenusManager";
-
-export const metadata: Metadata = {
-  title: "Menús — VetFlow",
-};
 
 export default async function MenusPage() {
   const user = await getUser();

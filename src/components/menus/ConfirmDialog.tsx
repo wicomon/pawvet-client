@@ -17,7 +17,7 @@ type ConfirmDialogProps = {
 // create/edit flow (per ui-ux-pro-max "destructive-emphasis" /
 // "destructive-nav-separation") — its own modal, its own red primary action.
 export default function ConfirmDialog({ menu, onClose, onDeleted, onError }: ConfirmDialogProps) {
-  const [removeMenu] = useMutation<{ menuRemove: boolean }, { id: string }>(MENU_REMOVE, {
+  const [removeMenu] = useMutation(MENU_REMOVE, {
     refetchQueries: [MENU_FIND_ALL],
   });
   const [pending, setPending] = useState(false);

@@ -60,14 +60,12 @@ export default function MenuFormModal({
 }: MenuFormModalProps) {
   const isEdit = Boolean(menu);
   const isPresetChild = !isEdit && Boolean(presetParentId);
-  const [createMenu] = useMutation<
-    { menuCreate: boolean },
-    { createMenuInput: CreateMenuInput }
-  >(MENU_CREATE, { refetchQueries: [MENU_FIND_ALL] });
-  const [updateMenu] = useMutation<
-    { menuUpdate: boolean },
-    { updateMenuInput: UpdateMenuInput }
-  >(MENU_UPDATE, { refetchQueries: [MENU_FIND_ALL] });
+  const [createMenu] = useMutation(MENU_CREATE, {
+    refetchQueries: [MENU_FIND_ALL],
+  });
+  const [updateMenu] = useMutation(MENU_UPDATE, {
+    refetchQueries: [MENU_FIND_ALL],
+  });
 
   const initialValues = menu
     ? menuToFormValues(menu)

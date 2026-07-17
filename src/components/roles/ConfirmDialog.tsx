@@ -15,7 +15,7 @@ type ConfirmDialogProps = {
 
 // Deletion confirmation, mirroring src/components/menus/ConfirmDialog.tsx.
 export default function ConfirmDialog({ role, onClose, onDeleted, onError }: ConfirmDialogProps) {
-  const [removeRole] = useMutation<{ roleRemove: boolean }, { id: string }>(ROLE_REMOVE, {
+  const [removeRole] = useMutation(ROLE_REMOVE, {
     refetchQueries: [ROLE_FIND_ALL_WITH_MENU],
   });
   const [pending, setPending] = useState(false);

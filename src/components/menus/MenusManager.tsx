@@ -11,7 +11,7 @@ import ConfirmDialog from "./ConfirmDialog";
 type Toast = { kind: "success" | "error"; message: string };
 
 export default function MenusManager() {
-  const { data, loading, error } = useQuery<{ menuFindAll: Menu[] }>(MENU_FIND_ALL);
+  const { data, loading, error } = useQuery(MENU_FIND_ALL);
   const [formTarget, setFormTarget] = useState<Menu | null | undefined>(undefined); // undefined = closed, null = create
   const [createParentId, setCreateParentId] = useState<string | undefined>(undefined);
   const [deleteTarget, setDeleteTarget] = useState<Menu | null>(null);

@@ -13,9 +13,7 @@ type Toast = { kind: "success" | "error"; message: string };
 
 // Mirrors src/components/menus/MenusManager.tsx.
 export default function RolesManager() {
-  const { data, loading, error } = useQuery<{ roleFindAllWithMenu: Role[] }>(
-    ROLE_FIND_ALL_WITH_MENU
-  );
+  const { data, loading, error } = useQuery(ROLE_FIND_ALL_WITH_MENU);
   const [formTarget, setFormTarget] = useState<Role | null | undefined>(undefined); // undefined = closed, null = create
   const [assignTarget, setAssignTarget] = useState<Role | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Role | null>(null);

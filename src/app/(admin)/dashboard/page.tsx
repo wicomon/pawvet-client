@@ -8,7 +8,7 @@ import LowStock from "@/components/dashboard/LowStock";
 import RecentSales from "@/components/dashboard/RecentSales";
 
 export const metadata: Metadata = {
-  title: "Panel — VetFlow",
+  title: "Panel — PawControl",
 };
 
 export default async function DashboardPage() {
