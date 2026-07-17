@@ -16,7 +16,7 @@ export const AUTH_USER_INFO = gql`
       firstName
       lastName
       isActive
-      organization {
+      company {
         id
         name
       }

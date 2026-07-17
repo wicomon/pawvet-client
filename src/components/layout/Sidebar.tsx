@@ -13,7 +13,7 @@ type SidebarProps = {
   onClose: () => void;
   userName: string;
   userInitials: string;
-  organizationName: string;
+  companyName: string;
   menus: MenuSummary[];
 };
 
@@ -25,7 +25,7 @@ export default function Sidebar({
   onClose,
   userName,
   userInitials,
-  organizationName,
+  companyName,
   menus,
 }: SidebarProps) {
   const pathname = usePathname();
@@ -96,7 +96,7 @@ export default function Sidebar({
           <div className="flex min-w-0 flex-1 flex-col gap-px">
             <span className="truncate text-[13.5px] font-bold text-white">{userName}</span>
             <span className="truncate text-[11.5px] text-wv-sidebar-muted">
-              {organizationName}
+              {companyName}
             </span>
           </div>
           <form action={logout}>

@@ -1,11 +1,11 @@
 import * as Yup from "yup";
 import { MENU_ICON_NAMES } from "@/lib/menuIcons";
-import { MENU_POSITION_OPTIONS, MENU_TYPE_OPTIONS, type Menu } from "@/types/menu";
+import { MENU_POSITION_OPTIONS, MENU_TYPE_OPTIONS, type CreateMenuInput, type Menu } from "@/types/menu";
 
-// Single source of truth for the create/edit form (src/components/menus/MenuFormModal.tsx).
-// Every field the mutation needs lives in Formik state — unlike the bfa-front
-// reference form, nothing (icon, order, etc.) is tracked in parallel useState
-// that has to be hand-merged back in onSubmit.
+// Single source of truth for the create/edit form (MenuCreateForm.tsx +
+// MenuEditForm.tsx). Every field the mutation needs lives in Formik state —
+// unlike the bfa-front reference form, nothing (icon, order, etc.) is
+// tracked in parallel useState that has to be hand-merged back in onSubmit.
 export interface MenuFormValues {
   id: string;
   code: string;
@@ -102,3 +102,21 @@ export const menuSchema = Yup.object({
     .nullable(),
   parentId: Yup.string(),
 });
+
+export function toMutationInput(values: MenuFormValues): CreateMenuInput {
+  return {
+    code: values.code.trim(),
+    name: values.name.trim(),
+    path: values.path.trim(),
+    type: values.type,
+    position: values.position,
+    description: values.description.trim() || undefined,
+    icon: values.icon || undefined,
+    order: values.order === "" ? undefined : Number(values.order),
+    // Sent as an explicit `null` (not omitted) so clearing the parent on an
+    // edit actually clears it — parentId is `nullable: true` on both
+    // Create/UpdateMenuInput in pawvet-server, and class-validator's
+    // `@IsOptional()` skips validation for `null` as well as `undefined`.
+    parentId: values.parentId || null,
+  };
+}

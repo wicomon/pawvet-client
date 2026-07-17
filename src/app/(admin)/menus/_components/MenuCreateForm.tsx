@@ -2,7 +2,7 @@
 
 import { Formik } from "formik";
 import { useMutation } from "@apollo/client/react";
-import { MENU_CREATE, MENU_FIND_ALL, MENU_UPDATE } from "@/graphql/menu.gql";
+import { MENU_CREATE, MENU_FIND_ALL } from "@/graphql/menu.gql";
 import TextField from "@/components/forms/fields/TextField";
 import SelectField from "@/components/forms/fields/SelectField";
 import FormModal from "@/components/ui/FormModal";
@@ -13,13 +13,11 @@ import {
   buildParentOptions,
   emptyMenuFormValues,
   menuSchema,
-  menuToFormValues,
-  type MenuFormValues,
+  toMutationInput,
 } from "./menuFormConfig";
-import type { Menu, CreateMenuInput, UpdateMenuInput } from "@/types/menu";
+import type { Menu } from "@/types/menu";
 
-type MenuFormModalProps = {
-  menu: Menu | null; // null = create, otherwise edit
+type MenuCreateFormProps = {
   menus: Menu[]; // full root-menu list, used to populate the "parent" picker
   presetParentId?: string; // set when opened via a parent row's "+ Submenú" button
   onClose: () => void;
@@ -27,49 +25,22 @@ type MenuFormModalProps = {
   onError: (message: string) => void;
 };
 
-function toMutationInput(values: MenuFormValues): CreateMenuInput {
-  return {
-    code: values.code.trim(),
-    name: values.name.trim(),
-    path: values.path.trim(),
-    type: values.type,
-    position: values.position,
-    description: values.description.trim() || undefined,
-    icon: values.icon || undefined,
-    order: values.order === "" ? undefined : Number(values.order),
-    // Sent as an explicit `null` (not omitted) so clearing the parent on an
-    // edit actually clears it — parentId is `nullable: true` on both
-    // Create/UpdateMenuInput in pawvet-server, and class-validator's
-    // `@IsOptional()` skips validation for `null` as well as `undefined`.
-    parentId: values.parentId || null,
-  };
-}
-
-// Formik + Yup form, driven entirely by menuFormConfig.ts. Every field the
-// mutation needs (including icon/order) lives in Formik state — the
-// bfa-front reference form kept extra fields in parallel useState and
-// hand-merged them in onSubmit, which this deliberately avoids.
-export default function MenuFormModal({
-  menu,
+// Formik + Yup form for creating a menu. Mirrors MenuEditForm.tsx but
+// without the isEdit branching that used to live in MenuFormModal.tsx.
+export default function MenuCreateForm({
   menus,
   presetParentId,
   onClose,
   onSaved,
   onError,
-}: MenuFormModalProps) {
-  const isEdit = Boolean(menu);
-  const isPresetChild = !isEdit && Boolean(presetParentId);
+}: MenuCreateFormProps) {
+  const isPresetChild = Boolean(presetParentId);
   const [createMenu] = useMutation(MENU_CREATE, {
     refetchQueries: [MENU_FIND_ALL],
   });
-  const [updateMenu] = useMutation(MENU_UPDATE, {
-    refetchQueries: [MENU_FIND_ALL],
-  });
 
-  const initialValues = menu
-    ? menuToFormValues(menu)
-    : { ...emptyMenuFormValues, parentId: presetParentId ?? "" };
-  const parentOptions = buildParentOptions(menus, menu?.id);
+  const initialValues = { ...emptyMenuFormValues, parentId: presetParentId ?? "" };
+  const parentOptions = buildParentOptions(menus);
 
   return (
     <Formik
@@ -77,22 +48,11 @@ export default function MenuFormModal({
       validationSchema={menuSchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          if (isEdit && menu) {
-            const updateMenuInput: UpdateMenuInput = { id: menu.id, ...toMutationInput(values) };
-            const { data } = await updateMenu({ variables: { updateMenuInput } });
-            if (!data?.menuUpdate) throw new Error("El backend no confirmó la actualización.");
-            onSaved(
-              values.parentId
-                ? "Menú actualizado. Ahora aparece anidado bajo su menú padre."
-                : "Menú actualizado correctamente."
-            );
-          } else {
-            const { data } = await createMenu({
-              variables: { createMenuInput: toMutationInput(values) },
-            });
-            if (!data?.menuCreate) throw new Error("El backend no confirmó la creación.");
-            onSaved(values.parentId ? "Submenú creado correctamente." : "Menú creado correctamente.");
-          }
+          const { data } = await createMenu({
+            variables: { createMenuInput: toMutationInput(values) },
+          });
+          if (!data?.menuCreate) throw new Error("El backend no confirmó la creación.");
+          onSaved(values.parentId ? "Submenú creado correctamente." : "Menú creado correctamente.");
         } catch (error) {
           onError(error instanceof Error ? error.message : "Ocurrió un error inesperado.");
         } finally {
@@ -102,12 +62,12 @@ export default function MenuFormModal({
     >
       {({ isSubmitting, dirty }) => (
         <FormModal
-          title={isEdit ? "Editar menú" : isPresetChild ? "Nuevo submenú" : "Nuevo menú"}
+          title={isPresetChild ? "Nuevo submenú" : "Nuevo menú"}
           titleId="menu-modal-title"
           onClose={onClose}
           dirty={dirty}
           isSubmitting={isSubmitting}
-          submitLabel={isEdit ? "Guardar cambios" : isPresetChild ? "Crear submenú" : "Crear menú"}
+          submitLabel={isPresetChild ? "Crear submenú" : "Crear menú"}
           pendingLabel="Guardando…"
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

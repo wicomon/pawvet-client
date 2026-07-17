@@ -1,31 +1,46 @@
 "use client";
 
 import { useState } from "react";
-import { useMutation } from "@apollo/client/react";
-import { ROLE_FIND_ALL_WITH_MENU, ROLE_REMOVE } from "@/graphql/role.gql";
 import Modal from "@/components/ui/Modal";
-import type { Role } from "@/types/role";
 
-type ConfirmDialogProps = {
-  role: Role;
+type ConfirmDeleteDialogProps = {
+  title: string; // "Eliminar empresa"
+  titleId: string; // "company-delete-title"
+  entityLabel: string; // "la empresa" | "el menú" | "el rol" (artículo + sustantivo)
+  entityName: string; // nombre resaltado en negrita dentro del mensaje
+  confirmLabel?: string;
+  pendingLabel?: string;
+  onConfirm: () => Promise<string>; // ejecuta la mutación; devuelve el mensaje de éxito; lanza si falla
   onClose: () => void;
   onDeleted: (message: string) => void;
   onError: (message: string) => void;
 };
 
-// Deletion confirmation, mirroring src/components/menus/ConfirmDialog.tsx.
-export default function ConfirmDialog({ role, onClose, onDeleted, onError }: ConfirmDialogProps) {
-  const [removeRole] = useMutation(ROLE_REMOVE, {
-    refetchQueries: [ROLE_FIND_ALL_WITH_MENU],
-  });
+// Shared deletion-confirmation dialog, extracted after the same markup/logic
+// was copy-pasted verbatim across company/menus/roles ConfirmDialog.tsx.
+// Visually and behaviorally separated from the create/edit flow — its own
+// modal, its own red primary action. The mutation itself stays with the
+// caller (via `onConfirm`) so this component doesn't depend on any specific
+// GraphQL document.
+export default function ConfirmDeleteDialog({
+  title,
+  titleId,
+  entityLabel,
+  entityName,
+  confirmLabel = "Eliminar",
+  pendingLabel = "Eliminando…",
+  onConfirm,
+  onClose,
+  onDeleted,
+  onError,
+}: ConfirmDeleteDialogProps) {
   const [pending, setPending] = useState(false);
 
   async function handleConfirm() {
     setPending(true);
     try {
-      const { data } = await removeRole({ variables: { id: role.id } });
-      if (!data?.roleRemove) throw new Error("El backend no confirmó la eliminación.");
-      onDeleted(`Rol "${role.name}" eliminado.`);
+      const message = await onConfirm();
+      onDeleted(message);
     } catch (error) {
       onError(error instanceof Error ? error.message : "Ocurrió un error inesperado.");
     } finally {
@@ -34,10 +49,11 @@ export default function ConfirmDialog({ role, onClose, onDeleted, onError }: Con
   }
 
   return (
-    <Modal title="Eliminar rol" titleId="role-delete-title" onClose={onClose}>
+    <Modal title={title} titleId={titleId} onClose={onClose}>
       <p className="text-[14px] font-semibold text-wv-muted">
-        ¿Seguro que deseas eliminar el rol <span className="font-bold text-wv-navy">{role.name}</span>
-        ? Esta acción no se puede deshacer.
+        ¿Seguro que deseas eliminar {entityLabel}{" "}
+        <span className="font-bold text-wv-navy">{entityName}</span>? Esta acción no se puede
+        deshacer.
       </p>
       <div className="mt-1 flex items-center justify-end gap-3">
         <button
@@ -54,7 +70,7 @@ export default function ConfirmDialog({ role, onClose, onDeleted, onError }: Con
           disabled={pending}
           className="cursor-pointer rounded-[10px] bg-danger px-3.5 py-2.25 text-[13.5px] font-extrabold text-white outline-none transition-colors duration-150 ease-out hover:opacity-90 focus-visible:shadow-focus disabled:cursor-not-allowed disabled:opacity-70"
         >
-          {pending ? "Eliminando…" : "Eliminar"}
+          {pending ? pendingLabel : confirmLabel}
         </button>
       </div>
     </Modal>

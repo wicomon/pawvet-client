@@ -9,7 +9,7 @@ type DashboardShellProps = {
   children: React.ReactNode;
   userName: string;
   userInitials: string;
-  organizationName: string;
+  companyName: string;
   menus: MenuSummary[];
 };
 
@@ -21,7 +21,7 @@ export default function DashboardShell({
   children,
   userName,
   userInitials,
-  organizationName,
+  companyName,
   menus,
 }: DashboardShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,7 +41,7 @@ export default function DashboardShell({
         onClose={() => setMenuOpen(false)}
         userName={userName}
         userInitials={userInitials}
-        organizationName={organizationName}
+        companyName={companyName}
         menus={menus}
       />
 

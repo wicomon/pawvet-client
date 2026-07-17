@@ -1,7 +1,7 @@
 // Shape returned by vdemia-server's `ContextUser` GraphQL type (src/common/entities/ContextUser.ts).
 // Keep this in sync with the SDL in vdemia-server/src/schema.gql.
 
-export interface OrganizationSummary {
+export interface CompanySummary {
   id: string;
   name: string;
 }
@@ -35,7 +35,7 @@ export interface ContextUser {
   firstName: string;
   lastName: string;
   isActive: boolean;
-  organization: OrganizationSummary;
+  company: CompanySummary;
   role: RoleSummary;
   menus: MenuSummary[];
 }

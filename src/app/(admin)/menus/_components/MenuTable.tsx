@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import { useMutation } from "@apollo/client/react";
 import DataTable from "@/components/ui/DataTable";
 import Alert from "@/components/ui/Alert";
+import ConfirmDeleteDialog from "@/components/ui/ConfirmDeleteDialog";
+import { MENU_FIND_ALL, MENU_REMOVE } from "@/graphql/menu.gql";
 import type { Menu } from "@/types/menu";
 import type { Toast } from "@/types/ui.types";
 import { buildMenuColumns } from "./menuColumns";
-import MenuFormModal from "./MenuFormModal";
-import ConfirmDialog from "./ConfirmDialog";
+import MenuCreateForm from "./MenuCreateForm";
+import MenuEditForm from "./MenuEditForm";
 
 type MenuTableProps = {
   menus: Menu[];
@@ -21,6 +24,9 @@ export default function MenuTable({ menus, loading, error }: MenuTableProps) {
   const [createParentId, setCreateParentId] = useState<string | undefined>(undefined);
   const [deleteTarget, setDeleteTarget] = useState<Menu | null>(null);
   const [toast, setToast] = useState<Toast | null>(null);
+  const [removeMenu] = useMutation(MENU_REMOVE, {
+    refetchQueries: [MENU_FIND_ALL],
+  });
 
   useEffect(() => {
     if (!toast) return;
@@ -63,9 +69,8 @@ export default function MenuTable({ menus, loading, error }: MenuTableProps) {
         {toast && <Alert kind={toast.kind} message={toast.message} />}
       </DataTable>
 
-      {formTarget !== undefined && (
-        <MenuFormModal
-          menu={formTarget}
+      {formTarget === null && (
+        <MenuCreateForm
           menus={menus}
           presetParentId={createParentId}
           onClose={() => {
@@ -81,9 +86,34 @@ export default function MenuTable({ menus, loading, error }: MenuTableProps) {
         />
       )}
 
+      {formTarget && (
+        <MenuEditForm
+          menu={formTarget}
+          menus={menus}
+          onClose={() => {
+            setFormTarget(undefined);
+            setCreateParentId(undefined);
+          }}
+          onSaved={(message) => {
+            setFormTarget(undefined);
+            setCreateParentId(undefined);
+            onToastSuccess(message);
+          }}
+          onError={onToastError}
+        />
+      )}
+
       {deleteTarget && (
-        <ConfirmDialog
-          menu={deleteTarget}
+        <ConfirmDeleteDialog
+          title="Eliminar menú"
+          titleId="menu-delete-title"
+          entityLabel="el menú"
+          entityName={deleteTarget.name}
+          onConfirm={async () => {
+            const { data } = await removeMenu({ variables: { id: deleteTarget.id } });
+            if (!data?.menuRemove) throw new Error("El backend no confirmó la eliminación.");
+            return `Menú "${deleteTarget.name}" eliminado.`;
+          }}
           onClose={() => setDeleteTarget(null)}
           onDeleted={(message) => {
             setDeleteTarget(null);

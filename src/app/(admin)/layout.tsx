@@ -16,7 +16,7 @@ export default async function DashboardLayout({
   const userInitials = user
     ? `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
     : "US";
-  const organizationName = user?.organization.name ?? "";
+  const companyName = user?.company.name ?? "";
   const menus = [...(user?.menus ?? [])].sort((a, b) => a.order - b.order);
 
   return (
@@ -24,7 +24,7 @@ export default async function DashboardLayout({
       <DashboardShell
         userName={userName}
         userInitials={userInitials}
-        organizationName={organizationName}
+        companyName={companyName}
         menus={menus}
       >
         <ApolloWrapper>{children}</ApolloWrapper>

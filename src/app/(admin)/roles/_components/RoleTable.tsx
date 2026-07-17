@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
+import { useMutation } from "@apollo/client/react";
 import DataTable from "@/components/ui/DataTable";
 import Alert from "@/components/ui/Alert";
+import ConfirmDeleteDialog from "@/components/ui/ConfirmDeleteDialog";
+import { ROLE_FIND_ALL_WITH_MENU, ROLE_REMOVE } from "@/graphql/role.gql";
 import type { Role } from "@/types/role";
 import type { Toast } from "@/types/ui.types";
 import { buildRoleColumns } from "./roleColumns";
 import RoleCreateForm from "./RoleCreateForm";
 import RoleEditForm from "./RoleEditForm";
 import AssignMenusForm from "./AssignMenusForm";
-import ConfirmDialog from "./ConfirmDialog";
 
 type RoleTableProps = {
   roles: Role[];
@@ -25,6 +27,9 @@ export default function RoleTable({ roles, loading, error }: RoleTableProps) {
   const [assignTarget, setAssignTarget] = useState<Role | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Role | null>(null);
   const [toast, setToast] = useState<Toast | null>(null);
+  const [removeRole] = useMutation(ROLE_REMOVE, {
+    refetchQueries: [ROLE_FIND_ALL_WITH_MENU],
+  });
 
   useEffect(() => {
     if (!toast) return;
@@ -88,8 +93,16 @@ export default function RoleTable({ roles, loading, error }: RoleTableProps) {
       )}
 
       {deleteTarget && (
-        <ConfirmDialog
-          role={deleteTarget}
+        <ConfirmDeleteDialog
+          title="Eliminar rol"
+          titleId="role-delete-title"
+          entityLabel="el rol"
+          entityName={deleteTarget.name}
+          onConfirm={async () => {
+            const { data } = await removeRole({ variables: { id: deleteTarget.id } });
+            if (!data?.roleRemove) throw new Error("El backend no confirmó la eliminación.");
+            return `Rol "${deleteTarget.name}" eliminado.`;
+          }}
           onClose={() => setDeleteTarget(null)}
           onDeleted={(message) => {
             setDeleteTarget(null);
