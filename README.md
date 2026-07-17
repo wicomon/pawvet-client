@@ -1,4 +1,4 @@
-# pawvet-client
+# pawcontrol-client
 
 Web client for pawvet, built with Next.js (App Router) on top of a GraphQL API served by the
 sibling `pawvet-server` repo.
@@ -7,9 +7,9 @@ sibling `pawvet-server` repo.
 
 - **Next.js 16.2** (App Router, Turbopack) — React 19, TypeScript 5
 - **Tailwind CSS v4** — design tokens as CSS custom properties, exposed via `@theme inline`
-- **GraphQL** — `gql` tagged templates (`@apollo/client`'s tag only) + `print()` from `graphql`,
-  consumed with raw `fetch`. There is no Apollo Client (or other GraphQL client) instance wired
-  into the app.
+- **GraphQL** — `gql` tagged templates + `print()` from `graphql`, consumed with raw `fetch` for
+  server-rendered pages; a real Apollo Client instance for Client Components under `(admin)`
+  (see [GraphQL](#graphql) below).
 - **Formik + Yup** — form state and validation
 - **pnpm** — package manager
 
