@@ -3,7 +3,7 @@ import { useField } from "formik";
 type TextFieldProps = {
   label: string;
   name: string;
-  type?: "text" | "number" | "email";
+  type?: "text" | "number" | "email" | "password";
   placeholder?: string;
   helperText?: string;
   required?: boolean;
