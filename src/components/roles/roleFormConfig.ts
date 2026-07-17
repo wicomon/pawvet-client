@@ -1,8 +1,8 @@
 import * as Yup from "yup";
-import type { Role } from "@/types/role";
+import type { CreateRoleInput, Role } from "@/types/role";
 
-// Single source of truth for the create/edit form (src/components/roles/RoleFormModal.tsx),
-// mirroring src/components/menus/menuFormConfig.ts.
+// Single source of truth for the create/edit form (src/components/roles/RoleCreateForm.tsx +
+// RoleEditForm.tsx), mirroring src/components/menus/menuFormConfig.ts.
 export interface RoleFormValues {
   id: string;
   name: string;
@@ -53,3 +53,15 @@ export const roleSchema = Yup.object({
   canUpdate: Yup.boolean().required(),
   canDelete: Yup.boolean().required(),
 });
+
+export function toMutationInput(values: RoleFormValues): CreateRoleInput {
+  return {
+    name: values.name.trim(),
+    slug: values.slug.trim(),
+    description: values.description.trim() || undefined,
+    canRead: values.canRead,
+    canCreate: values.canCreate,
+    canUpdate: values.canUpdate,
+    canDelete: values.canDelete,
+  };
+}

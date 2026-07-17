@@ -8,7 +8,7 @@ type CheckboxFieldProps = {
 
 // Formik checkbox, same accessible pattern as TextField/SelectField (real
 // <label htmlFor>, aria-describedby). Used for the four role permission
-// flags (canRead/canCreate/canUpdate/canDelete) in RoleFormModal.
+// flags (canRead/canCreate/canUpdate/canDelete) in RoleFormFields.
 export default function CheckboxField({ label, name, helperText }: CheckboxFieldProps) {
   const [field] = useField({ name, type: "checkbox" });
   const fieldId = `role-field-${name}`;

@@ -1,17 +1,6 @@
 import { gql, type TypedDocumentNode } from '@apollo/client';
 import type { AssignMenuInput, CreateRoleInput, Role, UpdateRoleInput } from '@/types/role';
 
-// pawvet-server: src/role/role.resolver.ts / src/schema.gql. All operations
-// require the ROOT role (@CurrentUser([ValidRoles.ROOT])).
-// roleFindAllWithMenu is a custom query (not in the original CRUD set) that
-// returns each role together with its currently-assigned root menus
-// (`menus { id name }`), via the RoleMenu join table — used both to render
-// the roles table and to preload AssignMenusModal's checkboxes, so the
-// client never needs a separate "menus for this role" round trip.
-
-// Documents are typed as TypedDocumentNode so useQuery/useMutation can infer
-// their result/variables instead of taking manual generics (Apollo Client 4
-// deprecated the manual-generics overload — see useQuery.d.ts).
 export const ROLE_FIND_ALL_WITH_MENU: TypedDocumentNode<
   { roleFindAllWithMenu: Role[] },
   Record<string, never>

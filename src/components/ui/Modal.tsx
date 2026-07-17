@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { X } from "lucide-react";
 
 type ModalProps = {
   title: string;
@@ -37,7 +38,7 @@ export default function Modal({ title, titleId, onClose, children }: ModalProps)
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
       <div
         aria-hidden="true"
         onClick={onClose}
@@ -60,14 +61,7 @@ export default function Modal({ title, titleId, onClose, children }: ModalProps)
             aria-label="Cerrar"
             className="grid h-9 w-9 shrink-0 cursor-pointer place-items-center rounded-[10px] text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus"
           >
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-              />
-            </svg>
+            <X aria-hidden="true" className="h-5 w-5" />
           </button>
         </div>
         {children}

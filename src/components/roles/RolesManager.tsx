@@ -5,7 +5,8 @@ import { useQuery } from "@apollo/client/react";
 import { ROLE_FIND_ALL_WITH_MENU } from "@/graphql/role.gql";
 import type { Role } from "@/types/role";
 import RoleTable from "./RoleTable";
-import RoleFormModal from "./RoleFormModal";
+import RoleCreateForm from "./RoleCreateForm";
+import RoleEditForm from "./RoleEditForm";
 import AssignMenusModal from "./AssignMenusModal";
 import ConfirmDialog from "./ConfirmDialog";
 import Alert from "@/components/ui/Alert";
@@ -72,8 +73,19 @@ export default function RolesManager() {
         />
       )}
 
-      {formTarget !== undefined && (
-        <RoleFormModal
+      {formTarget === null && (
+        <RoleCreateForm
+          onClose={() => setFormTarget(undefined)}
+          onSaved={(message) => {
+            setFormTarget(undefined);
+            setToast({ kind: "success", message });
+          }}
+          onError={(message) => setToast({ kind: "error", message })}
+        />
+      )}
+
+      {formTarget && (
+        <RoleEditForm
           role={formTarget}
           onClose={() => setFormTarget(undefined)}
           onSaved={(message) => {

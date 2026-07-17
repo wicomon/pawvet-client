@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 
-// vdemia-server: src/auth/auth.resolver.ts / src/schema.gql
 export const LOGIN = gql`
   mutation AuthLogin($loginInput: LoginInput!) {
     authLogin(loginInput: $loginInput) {

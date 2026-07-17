@@ -1,6 +1,3 @@
-// Column definitions for the /roles admin table, consumed by DataTable
-// (src/components/ui/DataTable.tsx). Mirrors src/components/menus/menuColumns.tsx.
-
 import type { ColumnDef } from "@tanstack/react-table";
 import { Check, ListChecks, Pencil, Trash2, X } from "lucide-react";
 import type { Role } from "@/types/role";

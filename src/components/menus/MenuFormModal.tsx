@@ -1,12 +1,11 @@
 "use client";
 
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
 import { useMutation } from "@apollo/client/react";
 import { MENU_CREATE, MENU_FIND_ALL, MENU_UPDATE } from "@/graphql/menu.gql";
 import TextField from "@/components/forms/fields/TextField";
 import SelectField from "@/components/forms/fields/SelectField";
-import SubmitButton from "@/components/forms/fields/SubmitButton";
-import Modal from "@/components/ui/Modal";
+import FormModal from "@/components/ui/FormModal";
 import {
   ICON_SELECT_OPTIONS,
   POSITION_SELECT_OPTIONS,
@@ -72,13 +71,6 @@ export default function MenuFormModal({
     : { ...emptyMenuFormValues, parentId: presetParentId ?? "" };
   const parentOptions = buildParentOptions(menus, menu?.id);
 
-  function handleClose(dirty: boolean) {
-    if (dirty && !window.confirm("Tienes cambios sin guardar. ¿Deseas cerrar de todas formas?")) {
-      return;
-    }
-    onClose();
-  }
-
   return (
     <Formik
       initialValues={initialValues}
@@ -109,62 +101,47 @@ export default function MenuFormModal({
       }}
     >
       {({ isSubmitting, dirty }) => (
-        <Modal
+        <FormModal
           title={isEdit ? "Editar menú" : isPresetChild ? "Nuevo submenú" : "Nuevo menú"}
           titleId="menu-modal-title"
-          onClose={() => handleClose(dirty)}
+          onClose={onClose}
+          dirty={dirty}
+          isSubmitting={isSubmitting}
+          submitLabel={isEdit ? "Guardar cambios" : isPresetChild ? "Crear submenú" : "Crear menú"}
+          pendingLabel="Guardando…"
         >
-          <Form className="flex flex-col gap-4" noValidate>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <TextField label="Código" name="code" placeholder="dashboard" required />
-              <TextField label="Nombre" name="name" placeholder="Panel" required />
-            </div>
-            <TextField label="Ruta" name="path" placeholder="/dashboard" required />
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <SelectField label="Tipo" name="type" options={TYPE_SELECT_OPTIONS} required />
-              <SelectField
-                label="Posición"
-                name="position"
-                options={POSITION_SELECT_OPTIONS}
-                required
-              />
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <SelectField label="Ícono" name="icon" options={ICON_SELECT_OPTIONS} />
-              <TextField label="Orden" name="order" type="number" placeholder="1" />
-            </div>
-            <SelectField label="Menú padre" name="parentId" options={parentOptions} />
-            {parentOptions.length === 1 && (
-              <p className="-mt-2.5 text-[12.5px] font-semibold text-wv-faint">
-                Solo los menús de tipo &quot;Desplegable&quot; pueden ser padre. Crea uno primero
-                para poder anidar este menú.
-              </p>
-            )}
-            <TextField
-              label="Descripción"
-              name="description"
-              placeholder="Opcional"
-              helperText="Se muestra como texto de apoyo en el menú."
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <TextField label="Código" name="code" placeholder="dashboard" required />
+            <TextField label="Nombre" name="name" placeholder="Panel" required />
+          </div>
+          <TextField label="Ruta" name="path" placeholder="/dashboard" required />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <SelectField label="Tipo" name="type" options={TYPE_SELECT_OPTIONS} required />
+            <SelectField
+              label="Posición"
+              name="position"
+              options={POSITION_SELECT_OPTIONS}
+              required
             />
-
-            <div className="mt-1 flex items-center justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => handleClose(dirty)}
-                className="cursor-pointer rounded-[10px] px-3.5 py-2.25 text-[13.5px] font-extrabold text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus"
-              >
-                Cancelar
-              </button>
-              <div className="w-45">
-                <SubmitButton
-                  label={isEdit ? "Guardar cambios" : isPresetChild ? "Crear submenú" : "Crear menú"}
-                  pendingLabel="Guardando…"
-                  pending={isSubmitting}
-                />
-              </div>
-            </div>
-          </Form>
-        </Modal>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <SelectField label="Ícono" name="icon" options={ICON_SELECT_OPTIONS} />
+            <TextField label="Orden" name="order" type="number" placeholder="1" />
+          </div>
+          <SelectField label="Menú padre" name="parentId" options={parentOptions} />
+          {parentOptions.length === 1 && (
+            <p className="-mt-2.5 text-[12.5px] font-semibold text-wv-faint">
+              Solo los menús de tipo &quot;Desplegable&quot; pueden ser padre. Crea uno primero
+              para poder anidar este menú.
+            </p>
+          )}
+          <TextField
+            label="Descripción"
+            name="description"
+            placeholder="Opcional"
+            helperText="Se muestra como texto de apoyo en el menú."
+          />
+        </FormModal>
       )}
     </Formik>
   );
