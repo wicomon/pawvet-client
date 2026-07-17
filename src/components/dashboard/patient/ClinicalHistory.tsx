@@ -13,7 +13,7 @@ export default function ClinicalHistory() {
         {CLINICAL_RECORDS.map((record) => (
           <article
             key={record.date}
-            className="flex flex-col gap-3 rounded-[14px] border border-wv-border bg-card px-[22px] py-5"
+            className="flex flex-col gap-3 rounded-[14px] border border-wv-border bg-card px-5.5 py-5"
           >
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
@@ -24,10 +24,10 @@ export default function ClinicalHistory() {
                 <span className="text-[12.5px] font-bold text-wv-muted-2">· {record.vet}</span>
               </div>
               <div className="flex gap-2">
-                <span className="rounded-full bg-wv-row-border px-2.5 py-[3px] text-[11.5px] font-extrabold text-wv-muted">
+                <span className="rounded-full bg-wv-row-border px-2.5 py-0.75 text-[11.5px] font-extrabold text-wv-muted">
                   {record.weight}
                 </span>
-                <span className="rounded-full bg-wv-row-border px-2.5 py-[3px] text-[11.5px] font-extrabold text-wv-muted">
+                <span className="rounded-full bg-wv-row-border px-2.5 py-0.75 text-[11.5px] font-extrabold text-wv-muted">
                   {record.temperature}
                 </span>
               </div>
@@ -43,12 +43,12 @@ export default function ClinicalHistory() {
       </section>
 
       <div className="flex flex-col gap-5">
-        <section className="flex flex-col gap-3.5 rounded-[14px] border border-wv-border bg-card px-[22px] py-5">
+        <section className="flex flex-col gap-3.5 rounded-[14px] border border-wv-border bg-card px-5.5 py-5">
           <div className="flex items-baseline justify-between">
             <h3 className="font-heading text-[15px] font-bold text-wv-navy">Curva de peso</h3>
             <span className="text-[13px] font-extrabold text-wv-teal">{PATIENT.weight}</span>
           </div>
-          <div className="flex h-[110px] items-end gap-2.5">
+          <div className="flex h-27.5 items-end gap-2.5">
             {WEIGHT_BARS.map((bar) => (
               <div
                 key={bar.month}
@@ -65,7 +65,7 @@ export default function ClinicalHistory() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-3 rounded-[14px] border border-wv-border bg-card px-[22px] py-5">
+        <section className="flex flex-col gap-3 rounded-[14px] border border-wv-border bg-card px-5.5 py-5">
           <h3 className="font-heading text-[15px] font-bold text-wv-navy">Próxima cita</h3>
           <div className="flex items-center gap-3 rounded-[10px] bg-wv-canvas px-3.5 py-3">
             <div className="flex shrink-0 flex-col items-center rounded-[10px] border border-wv-border bg-card px-3 py-1.5">
@@ -100,7 +100,7 @@ export default function ClinicalHistory() {
 function RecordField({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-1">
-      <span className="text-[11px] font-extrabold tracking-[0.05em] text-wv-faint uppercase">
+      <span className="text-[11px] font-extrabold tracking-wider text-wv-faint uppercase">
         {label}
       </span>
       <span className="text-[13.5px] leading-[1.5] text-wv-muted-2">{value}</span>

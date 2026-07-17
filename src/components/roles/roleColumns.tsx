@@ -94,7 +94,7 @@ export function buildRoleColumns({
             <button
               type="button"
               onClick={() => onAssignMenus(role)}
-              className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-[10px] border border-wv-btn-border px-2.5 py-[7px] text-[12px] font-extrabold text-wv-teal outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus"
+              className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-[10px] border border-wv-btn-border px-2.5 py-1.75 text-[12px] font-extrabold text-wv-teal outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus"
             >
               <ListChecks aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2.5} />
               Asignar menús
@@ -105,7 +105,7 @@ export function buildRoleColumns({
               aria-label={`Editar ${role.name}`}
               className="grid h-9 w-9 cursor-pointer place-items-center rounded-[10px] text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft hover:text-wv-teal-deep focus-visible:shadow-focus"
             >
-              <Pencil aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2} />
+              <Pencil aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={2} />
             </button>
             <button
               type="button"
@@ -113,7 +113,7 @@ export function buildRoleColumns({
               aria-label={`Eliminar ${role.name}`}
               className="grid h-9 w-9 cursor-pointer place-items-center rounded-[10px] text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-danger-bg hover:text-danger focus-visible:shadow-focus"
             >
-              <Trash2 aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2} />
+              <Trash2 aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={2} />
             </button>
           </div>
         );

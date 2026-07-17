@@ -3,7 +3,7 @@ import { TRUSTED_CLINICS } from "./content";
 export default function TrustBar() {
   return (
     <section className="border-y border-wv-border bg-white">
-      <div className="mx-auto flex max-w-[1160px] flex-col items-center gap-4 px-6 py-7 sm:px-8">
+      <div className="mx-auto flex max-w-290 flex-col items-center gap-4 px-6 py-7 sm:px-8">
         <span className="text-[13px] font-bold uppercase tracking-wider text-wv-faint">
           Diseñado para las mejores clínicas y pet shops del país
         </span>

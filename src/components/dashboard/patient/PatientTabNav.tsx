@@ -27,7 +27,7 @@ export default function PatientTabNav({ patientId, activeTab }: PatientTabNavPro
             key={tab.key}
             href={`/patients/${patientId}?tab=${tab.key}`}
             aria-current={active ? "page" : undefined}
-            className={`rounded-[10px] border-[1.5px] px-[18px] py-2.5 text-sm font-bold outline-none focus-visible:shadow-focus ${
+            className={`rounded-[10px] border-[1.5px] px-4.5 py-2.5 text-sm font-bold outline-none focus-visible:shadow-focus ${
               active
                 ? "border-wv-teal bg-wv-teal text-white"
                 : "border-wv-btn-border bg-card text-wv-muted-2"

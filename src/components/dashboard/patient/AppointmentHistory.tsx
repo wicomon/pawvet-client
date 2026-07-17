@@ -3,16 +3,16 @@ import { statusBadge } from "../content";
 
 export default function AppointmentHistory() {
   return (
-    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-[22px]">
+    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-5.5">
       <h2 className="font-heading text-[17px] font-bold text-wv-navy">Historial de citas</h2>
       <div className="overflow-x-auto">
-        <div className="flex min-w-[560px] flex-col gap-1.5">
+        <div className="flex min-w-140 flex-col gap-1.5">
           {PATIENT_APPOINTMENTS.map((appt) => {
             const badge = statusBadge(appt.status);
             return (
               <div
                 key={`${appt.date}-${appt.time}`}
-                className="grid grid-cols-[130px_1fr_auto_auto] items-center gap-3.5 rounded-[10px] border border-wv-row-border px-3.5 py-[13px]"
+                className="grid grid-cols-[130px_1fr_auto_auto] items-center gap-3.5 rounded-[10px] border border-wv-row-border px-3.5 py-3.25"
               >
                 <span className="font-heading text-[13.5px] font-bold text-wv-navy">
                   {appt.date}

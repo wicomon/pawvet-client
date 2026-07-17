@@ -49,7 +49,7 @@ export default function DashboardShell({
         <Topbar onOpenMenu={() => setMenuOpen(true)} />
         <main
           data-screen-label="Dashboard"
-          className="flex flex-col gap-[18px] p-3.5 sm:p-7 sm:gap-[22px]"
+          className="flex flex-col gap-4.5 p-3.5 sm:p-7 sm:gap-5.5"
         >
           {children}
         </main>

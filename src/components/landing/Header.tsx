@@ -5,9 +5,9 @@ import { BRAND } from "./content";
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-wv-border bg-wv-bg/90 backdrop-blur-md">
-      <div className="mx-auto flex h-[68px] max-w-[1160px] items-center justify-between gap-6 px-6 sm:px-8">
+      <div className="mx-auto flex h-17 max-w-290 items-center justify-between gap-6 px-6 sm:px-8">
         <Link href="/" className="flex items-center gap-2.5">
-          <span className="grid h-[34px] w-[34px] place-items-center rounded-[10px] bg-wv-navy">
+          <span className="grid h-8.5 w-8.5 place-items-center rounded-[10px] bg-wv-navy">
             <BrandIcon size={20} tone="verde" />
           </span>
           <span className="font-heading text-base font-bold text-wv-navy sm:text-xl">

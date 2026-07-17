@@ -19,7 +19,7 @@ export default function DaySelector({ selectedDay }: DaySelectorProps) {
             key={day.name}
             href={`/schedule?day=${index}`}
             aria-current={active ? "page" : undefined}
-            className={`flex min-w-[86px] shrink-0 flex-col items-center gap-0.5 rounded-xl border-[1.5px] px-3 py-2.5 outline-none focus-visible:shadow-focus ${
+            className={`flex min-w-21.5 shrink-0 flex-col items-center gap-0.5 rounded-xl border-[1.5px] px-3 py-2.5 outline-none focus-visible:shadow-focus ${
               active
                 ? "border-wv-teal bg-wv-teal text-white"
                 : "border-wv-btn-border bg-card text-wv-muted-2"

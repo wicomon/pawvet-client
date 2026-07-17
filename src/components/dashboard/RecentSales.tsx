@@ -2,7 +2,7 @@ import { RECENT_SALES, saleStatusBadge } from "./content";
 
 export default function RecentSales() {
   return (
-    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-[22px]">
+    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-5.5">
       <div className="flex items-center justify-between">
         <h2 className="font-heading text-[17px] font-bold text-wv-navy">Últimas ventas</h2>
         <a
@@ -14,8 +14,8 @@ export default function RecentSales() {
       </div>
 
       <div className="overflow-x-auto">
-        <div className="flex min-w-[640px] flex-col gap-1.5">
-          <div className="grid grid-cols-[90px_1fr_1fr_auto_auto] gap-3 px-3.5 pb-1.5 text-[11.5px] font-extrabold tracking-[0.05em] text-wv-faint uppercase">
+        <div className="flex min-w-160 flex-col gap-1.5">
+          <div className="grid grid-cols-[90px_1fr_1fr_auto_auto] gap-3 px-3.5 pb-1.5 text-[11.5px] font-extrabold tracking-wider text-wv-faint uppercase">
             <span>Hora</span>
             <span>Cliente</span>
             <span>Detalle</span>

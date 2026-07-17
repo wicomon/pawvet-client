@@ -8,8 +8,8 @@ import RoleTable from "./RoleTable";
 import RoleFormModal from "./RoleFormModal";
 import AssignMenusModal from "./AssignMenusModal";
 import ConfirmDialog from "./ConfirmDialog";
-
-type Toast = { kind: "success" | "error"; message: string };
+import Alert from "@/components/ui/Alert";
+import type { Toast } from "@/types/ui.types";
 
 // Mirrors src/components/menus/MenusManager.tsx.
 export default function RolesManager() {
@@ -18,17 +18,19 @@ export default function RolesManager() {
   const [assignTarget, setAssignTarget] = useState<Role | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Role | null>(null);
   const [toast, setToast] = useState<Toast | null>(null);
-
+  
   useEffect(() => {
     if (!toast) return;
     const timer = setTimeout(() => setToast(null), 4000);
     return () => clearTimeout(timer);
   }, [toast]);
 
-  const roles = [...(data?.roleFindAllWithMenu ?? [])].sort((a, b) => a.name.localeCompare(b.name));
+
+  // const roles = [...(data?.roleFindAllWithMenu ?? [])].sort((a, b) => a.name.localeCompare(b.name));
+  const roles = data?.roleFindAllWithMenu ?? [];
 
   return (
-    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-[22px]">
+    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-5.5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="font-heading text-[17px] font-bold text-wv-navy">Roles</h2>
@@ -39,28 +41,18 @@ export default function RolesManager() {
         <button
           type="button"
           onClick={() => setFormTarget(null)}
-          className="cursor-pointer rounded-[10px] bg-wv-teal px-3.5 py-[9px] text-[13px] font-extrabold text-white outline-none transition-colors duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus"
+          className="cursor-pointer rounded-[10px] bg-wv-teal px-3.5 py-2.25 text-[13px] font-extrabold text-white outline-none transition-colors duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus"
         >
           + Nuevo rol
         </button>
       </div>
 
-      {toast && (
-        <div
-          role="status"
-          aria-live="polite"
-          className={`rounded-xl px-3.5 py-2.5 text-[13px] font-semibold ${
-            toast.kind === "success" ? "bg-wv-mint-soft text-wv-teal-deep" : "bg-danger-bg text-danger"
-          }`}
-        >
-          {toast.message}
-        </div>
-      )}
+      {toast && <Alert kind={toast.kind} message={toast.message} />}
 
       {loading && (
         <div className="flex flex-col gap-1.5" aria-hidden="true">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="h-[52px] animate-pulse rounded-[10px] bg-wv-bg-alt" />
+            <div key={i} className="h-13 animate-pulse rounded-[10px] bg-wv-bg-alt" />
           ))}
         </div>
       )}

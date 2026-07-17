@@ -33,7 +33,7 @@ export default function AuthBrandPanel() {
           </span>
         </Link>
 
-        <div className="flex max-w-[440px] flex-col gap-[18px]">
+        <div className="flex max-w-110 flex-col gap-4.5">
           <h2 className="font-heading text-[34px] font-extrabold leading-[1.2] text-white text-pretty m-0">
             {BRAND_PANEL.headline}
           </h2>
@@ -46,8 +46,8 @@ export default function AuthBrandPanel() {
                 key={badge.label}
                 className={
                   badge.tone === "mint"
-                    ? "rounded-full border border-wv-mint/50 bg-wv-mint/[0.18] px-[13px] py-1.5 text-[12.5px] font-extrabold text-wv-mint-light"
-                    : "rounded-full border border-white/22 bg-white/10 px-[13px] py-1.5 text-[12.5px] font-bold text-white/85"
+                    ? "rounded-full border border-wv-mint/50 bg-wv-mint/[0.18] px-3.25 py-1.5 text-[12.5px] font-extrabold text-wv-mint-light"
+                    : "rounded-full border border-white/22 bg-white/10 px-3.25 py-1.5 text-[12.5px] font-bold text-white/85"
                 }
               >
                 {badge.label}

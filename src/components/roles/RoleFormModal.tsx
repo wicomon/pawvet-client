@@ -110,11 +110,11 @@ export default function RoleFormModal({ role, onClose, onSaved, onError }: RoleF
               <button
                 type="button"
                 onClick={() => handleClose(dirty)}
-                className="cursor-pointer rounded-[10px] px-3.5 py-[9px] text-[13.5px] font-extrabold text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus"
+                className="cursor-pointer rounded-[10px] px-3.5 py-2.25 text-[13.5px] font-extrabold text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus"
               >
                 Cancelar
               </button>
-              <div className="w-[180px]">
+              <div className="w-45">
                 <SubmitButton
                   label={isEdit ? "Guardar cambios" : "Crear rol"}
                   pendingLabel="Guardando…"

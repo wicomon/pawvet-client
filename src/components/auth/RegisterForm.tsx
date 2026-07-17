@@ -14,7 +14,7 @@ export default function RegisterForm() {
   const passwordId = useId();
 
   const fieldClass =
-    "w-full h-[50px] rounded-field border-[1.5px] border-wv-btn-border bg-white px-[15px] text-[15px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus";
+    "w-full h-12.5 rounded-field border-[1.5px] border-wv-btn-border bg-white px-3.75 text-[15px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus";
   const labelClass = "text-[13px] font-extrabold text-wv-navy";
 
   return (
@@ -26,13 +26,13 @@ export default function RegisterForm() {
       className="flex flex-col gap-4 animate-[rise_400ms_var(--ease-out-strong)_100ms_both]"
     >
       <div className="grid grid-cols-2 gap-3">
-        <div className="flex flex-col gap-[7px]">
+        <div className="flex flex-col gap-1.75">
           <label htmlFor={firstNameId} className={labelClass}>
             Nombre
           </label>
           <input id={firstNameId} name="firstName" type="text" placeholder="Carla" className={fieldClass} />
         </div>
-        <div className="flex flex-col gap-[7px]">
+        <div className="flex flex-col gap-1.75">
           <label htmlFor={lastNameId} className={labelClass}>
             Apellido
           </label>
@@ -40,14 +40,14 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-[7px]">
+      <div className="flex flex-col gap-1.75">
         <label htmlFor={clinicId} className={labelClass}>
           Nombre de tu clínica o pet shop
         </label>
         <input id={clinicId} name="clinicName" type="text" placeholder="San Borja Vet" className={fieldClass} />
       </div>
 
-      <div className="flex flex-col gap-[7px]">
+      <div className="flex flex-col gap-1.75">
         <label htmlFor={emailId} className={labelClass}>
           Correo electrónico
         </label>
@@ -61,7 +61,7 @@ export default function RegisterForm() {
         />
       </div>
 
-      <div className="flex flex-col gap-[7px]">
+      <div className="flex flex-col gap-1.75">
         <label htmlFor={passwordId} className={labelClass}>
           Contraseña
         </label>
@@ -86,7 +86,7 @@ export default function RegisterForm() {
 
       <button
         type="submit"
-        className="mt-0.5 h-[52px] w-full flex items-center justify-center gap-2.5 rounded-[11px] bg-wv-teal text-[15.5px] font-extrabold text-white shadow-[0_8px_22px_rgba(14,140,111,0.26)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97]"
+        className="mt-0.5 h-13 w-full flex items-center justify-center gap-2.5 rounded-[11px] bg-wv-teal text-[15.5px] font-extrabold text-white shadow-[0_8px_22px_rgba(14,140,111,0.26)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97]"
       >
         Crear cuenta gratis
       </button>

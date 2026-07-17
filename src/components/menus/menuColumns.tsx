@@ -145,7 +145,7 @@ export function buildMenuColumns({
               <button
                 type="button"
                 onClick={() => onAddSubmenu(menu.id)}
-                className="cursor-pointer whitespace-nowrap rounded-[10px] border border-wv-btn-border px-2.5 py-[7px] text-[12px] font-extrabold text-wv-teal outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus"
+                className="cursor-pointer whitespace-nowrap rounded-[10px] border border-wv-btn-border px-2.5 py-1.75 text-[12px] font-extrabold text-wv-teal outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus"
               >
                 + Submenú
               </button>
@@ -156,7 +156,7 @@ export function buildMenuColumns({
               aria-label={`Editar ${menu.name}`}
               className="grid h-9 w-9 cursor-pointer place-items-center rounded-[10px] text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft hover:text-wv-teal-deep focus-visible:shadow-focus"
             >
-              <Pencil aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2} />
+              <Pencil aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={2} />
             </button>
             <button
               type="button"
@@ -164,7 +164,7 @@ export function buildMenuColumns({
               aria-label={`Eliminar ${menu.name}`}
               className="grid h-9 w-9 cursor-pointer place-items-center rounded-[10px] text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-danger-bg hover:text-danger focus-visible:shadow-focus"
             >
-              <Trash2 aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2} />
+              <Trash2 aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={2} />
             </button>
           </div>
         );

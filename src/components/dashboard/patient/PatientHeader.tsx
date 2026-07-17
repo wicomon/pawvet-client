@@ -2,12 +2,12 @@ import { PATIENT } from "./content";
 
 export default function PatientHeader() {
   return (
-    <section className="flex flex-wrap items-start gap-[22px] rounded-2xl border border-wv-border bg-card p-6">
-      <div className="grid h-[88px] w-[88px] shrink-0 place-items-center rounded-[18px] border-[1.5px] border-dashed border-wv-btn-border [background:repeating-linear-gradient(45deg,var(--color-wv-bg-alt),var(--color-wv-bg-alt)_8px,var(--color-wv-mint-wash)_8px,var(--color-wv-mint-wash)_16px)]">
+    <section className="flex flex-wrap items-start gap-5.5 rounded-2xl border border-wv-border bg-card p-6">
+      <div className="grid h-22 w-22 shrink-0 place-items-center rounded-[18px] border-[1.5px] border-dashed border-wv-btn-border [background:repeating-linear-gradient(45deg,var(--color-wv-bg-alt),var(--color-wv-bg-alt)_8px,var(--color-wv-mint-wash)_8px,var(--color-wv-mint-wash)_16px)]">
         <span className="font-mono text-[10.5px] text-wv-muted-2">foto</span>
       </div>
 
-      <div className="flex min-w-[240px] flex-1 flex-col gap-2.5">
+      <div className="flex min-w-60 flex-1 flex-col gap-2.5">
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="font-heading text-[26px] font-extrabold text-wv-navy">{PATIENT.name}</h1>
           <span className="rounded-full bg-wv-mint-soft px-3 py-1 text-xs font-extrabold text-wv-teal-deep">
@@ -18,7 +18,7 @@ export default function PatientHeader() {
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-x-[26px] gap-y-[18px]">
+        <div className="flex flex-wrap gap-x-6.5 gap-y-4.5">
           <PatientFact label="Especie / Raza" value={`${PATIENT.species} · ${PATIENT.breed}`} />
           <PatientFact label="Sexo / Edad" value={`${PATIENT.sex} · ${PATIENT.age}`} />
           <PatientFact label="Peso actual" value={PATIENT.weight} />
@@ -60,7 +60,7 @@ function PatientFact({
 }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <span className="text-[11px] font-extrabold tracking-[0.05em] text-wv-faint uppercase">
+      <span className="text-[11px] font-extrabold tracking-wider text-wv-faint uppercase">
         {label}
       </span>
       <span className={`text-sm font-bold ${tone === "teal" ? "text-wv-teal" : "text-wv-navy"}`}>

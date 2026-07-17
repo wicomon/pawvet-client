@@ -2,7 +2,7 @@ import { LOW_STOCK } from "./content";
 
 export default function LowStock() {
   return (
-    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-[22px]">
+    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-5.5">
       <h2 className="font-heading text-[17px] font-bold text-wv-navy">Stock bajo</h2>
 
       <div className="flex flex-col gap-2">

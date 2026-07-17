@@ -13,12 +13,12 @@ export default function AuthLayout({
       <AuthBrandPanel />
 
       <main className="flex flex-1 min-w-0 items-center justify-center px-6 py-10 sm:px-10 lg:px-14">
-        <div className="flex w-full max-w-[420px] flex-col gap-[26px]">
+        <div className="flex w-full max-w-105 flex-col gap-6.5">
           <Link
             href="/"
             className="flex lg:hidden items-center justify-center gap-2.5 rounded-[10px] outline-none focus-visible:shadow-focus"
           >
-            <span className="grid h-[34px] w-[34px] place-items-center rounded-xl bg-wv-navy">
+            <span className="grid h-8.5 w-8.5 place-items-center rounded-xl bg-wv-navy">
               <BrandIcon size={20} tone="verde" />
             </span>
             <span className="font-heading text-xl font-bold text-wv-navy">

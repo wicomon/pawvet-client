@@ -17,9 +17,9 @@ export default function WeekGrid({ appointments }: WeekGridProps) {
   const gridHeight = HOUR_LABELS.length * HOUR_HEIGHT_PX;
 
   return (
-    <section className="rounded-2xl border border-wv-border bg-card px-5 py-[18px]">
+    <section className="rounded-2xl border border-wv-border bg-card px-5 py-4.5">
       <div className="overflow-x-auto">
-        <div className="grid min-w-[720px] grid-cols-[56px_repeat(3,1fr)]">
+        <div className="grid min-w-180 grid-cols-[56px_repeat(3,1fr)]">
           <div />
           {SCHEDULE_VETS.map((vet, vetIndex) => {
             const count = appointments.filter((a) => a.vetIndex === vetIndex).length;

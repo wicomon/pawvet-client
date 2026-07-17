@@ -44,8 +44,8 @@ const orderItems = [
 export default function ProblemSolution() {
   return (
     <section className="bg-wv-bg">
-      <div className="mx-auto max-w-[1160px] px-6 py-16 sm:px-8 md:py-20">
-        <div className="mx-auto mb-12 flex max-w-[640px] flex-col items-center gap-3.5 text-center">
+      <div className="mx-auto max-w-290 px-6 py-16 sm:px-8 md:py-20">
+        <div className="mx-auto mb-12 flex max-w-160 flex-col items-center gap-3.5 text-center">
           <PawMark
             size={18}
             color="var(--color-wv-teal)"
@@ -68,7 +68,7 @@ export default function ProblemSolution() {
             <div className="flex flex-col gap-4">
               {chaosItems.map((item) => (
                 <div key={item.title} className="flex items-start gap-3">
-                  <span className="grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full bg-wv-chaos-bg text-[13px] font-extrabold text-wv-chaos-ink">
+                  <span className="grid h-5.5 w-5.5 shrink-0 place-items-center rounded-full bg-wv-chaos-bg text-[13px] font-extrabold text-wv-chaos-ink">
                     ✕
                   </span>
                   <p className="text-[15.5px] leading-relaxed text-wv-muted">
@@ -86,7 +86,7 @@ export default function ProblemSolution() {
             <div className="flex flex-col gap-4">
               {orderItems.map((item) => (
                 <div key={item.title} className="flex items-start gap-3">
-                  <span className="grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full bg-[rgba(23,190,154,0.18)] text-[13px] font-extrabold text-wv-mint">
+                  <span className="grid h-5.5 w-5.5 shrink-0 place-items-center rounded-full bg-[rgba(23,190,154,0.18)] text-[13px] font-extrabold text-wv-mint">
                     ✓
                   </span>
                   <p className="text-[15.5px] leading-relaxed text-[#B9CBD9]">

@@ -3,7 +3,7 @@ import { TODAY_APPOINTMENTS, statusBadge, patientSlug } from "./content";
 
 export default function TodaySchedule() {
   return (
-    <section className="flex flex-col gap-4 rounded-2xl border border-wv-border bg-card px-6 py-[22px]">
+    <section className="flex flex-col gap-4 rounded-2xl border border-wv-border bg-card px-6 py-5.5">
       <div className="flex items-center justify-between">
         <h2 className="font-heading text-[17px] font-bold text-wv-navy">Agenda de hoy</h2>
         <Link

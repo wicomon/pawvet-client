@@ -29,7 +29,7 @@ export default function TextField({
   const helperId = `${fieldId}-helper`;
 
   return (
-    <div className="flex flex-col gap-[7px]">
+    <div className="flex flex-col gap-1.75">
       <label htmlFor={fieldId} className="text-[13px] font-extrabold text-wv-navy">
         {label} {required && <span className="text-danger">*</span>}
       </label>
@@ -41,7 +41,7 @@ export default function TextField({
         value={field.value ?? ""}
         aria-invalid={invalid}
         aria-describedby={invalid ? errorId : helperText ? helperId : undefined}
-        className={`h-[46px] w-full rounded-field border-[1.5px] bg-white px-[15px] text-[14.5px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus ${
+        className={`h-11.5 w-full rounded-field border-[1.5px] bg-white px-3.75 text-[14.5px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus ${
           invalid ? "border-danger-border" : "border-wv-btn-border"
         }`}
       />

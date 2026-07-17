@@ -48,7 +48,7 @@ export default function Modal({ title, titleId, onClose, children }: ModalProps)
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative flex max-h-[90vh] w-full max-w-[520px] flex-col gap-5 overflow-y-auto rounded-card bg-card p-6 shadow-card animate-[rise_250ms_var(--ease-out-strong)_both]"
+        className="relative flex max-h-[90vh] w-full max-w-130 flex-col gap-5 overflow-y-auto rounded-card bg-card p-6 shadow-card animate-[rise_250ms_var(--ease-out-strong)_both]"
       >
         <div className="flex items-center justify-between gap-3">
           <h2 id={titleId} className="font-heading text-[18px] font-bold text-wv-navy">

@@ -33,8 +33,8 @@ export default function Sidebar({
   return (
     <aside
       data-screen-label="Sidebar"
-      className={`fixed inset-y-0 left-0 z-[70] flex h-dvh w-[264px] flex-col gap-5 bg-wv-navy p-3.5 transition-transform duration-[250ms] ease-out lg:sticky lg:top-0 lg:z-auto lg:h-dvh lg:w-[232px] lg:translate-x-0 lg:gap-6 ${
-        isOpen ? "translate-x-0 shadow-[0_0_40px_rgba(0,0,0,0.35)]" : "-translate-x-[105%]"
+      className={`fixed inset-y-0 left-0 z-70 flex h-dvh w-66 flex-col gap-5 bg-wv-navy p-3.5 transition-transform duration-250 ease-out lg:sticky lg:top-0 lg:z-auto lg:h-dvh lg:w-58 lg:translate-x-0 lg:gap-6 ${
+        isOpen ? "translate-x-0 shadow-[0_0_40px_rgba(0,0,0,0.35)]" : "translate-x-[-105%]"
       }`}
     >
       <Link href="/dashboard" className="flex items-center gap-2.5 px-2.5 py-1" onClick={onClose}>
@@ -64,7 +64,7 @@ export default function Sidebar({
               className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-bold outline-none transition-colors duration-150 ease-out focus-visible:shadow-focus ${
                 active
                   ? "bg-wv-mint/[0.14] text-white"
-                  : "text-wv-sidebar-muted hover:bg-white/[0.08]"
+                  : "text-wv-sidebar-muted hover:bg-white/8"
               }`}
             >
               <Icon
@@ -81,7 +81,7 @@ export default function Sidebar({
 
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-1 rounded-xl border border-wv-navy-line bg-wv-navy-panel px-3.5 py-3">
-          <span className="text-[11px] font-extrabold tracking-[0.05em] text-wv-mint uppercase">
+          <span className="text-[11px] font-extrabold tracking-wider text-wv-mint uppercase">
             Plan Clínica Pro
           </span>
           <span className="text-[12.5px] leading-[1.45] text-wv-sidebar-muted">
@@ -90,7 +90,7 @@ export default function Sidebar({
         </div>
 
         <div className="flex items-center gap-2.5 rounded-[10px] px-2.5 py-2">
-          <div className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full bg-wv-mint-soft font-heading text-[13px] font-bold text-wv-teal-deep">
+          <div className="grid h-8.5 w-8.5 shrink-0 place-items-center rounded-full bg-wv-mint-soft font-heading text-[13px] font-bold text-wv-teal-deep">
             {userInitials}
           </div>
           <div className="flex min-w-0 flex-1 flex-col gap-px">
@@ -103,14 +103,14 @@ export default function Sidebar({
             <button
               type="submit"
               title="Cerrar sesión"
-              className="cursor-pointer rounded-md p-1.5 text-wv-sidebar-muted outline-none transition-colors duration-150 ease-out hover:bg-white/[0.08] hover:text-white focus-visible:shadow-focus"
+              className="cursor-pointer rounded-md p-1.5 text-wv-sidebar-muted outline-none transition-colors duration-150 ease-out hover:bg-white/8 hover:text-white focus-visible:shadow-focus"
             >
               <span className="sr-only">Cerrar sesión</span>
               <svg
                 aria-hidden="true"
                 viewBox="0 0 24 24"
                 fill="none"
-                className="h-[18px] w-[18px]"
+                className="h-4.5 w-4.5"
               >
                 <path
                   d="M15 17l5-5-5-5M20 12H9M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"

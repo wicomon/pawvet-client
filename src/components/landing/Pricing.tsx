@@ -24,7 +24,7 @@ function FeatureRow({ feature }: { feature: Feature }) {
   return (
     <div className="flex items-center gap-2.5">
       <span
-        className={`grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full text-[11px] font-extrabold ${
+        className={`grid h-4.5 w-4.5 shrink-0 place-items-center rounded-full text-[11px] font-extrabold ${
           feature.soon
             ? "bg-wv-amber-bg text-wv-amber-ink"
             : "bg-wv-mint-soft text-wv-teal-hover"
@@ -47,8 +47,8 @@ function FeatureRow({ feature }: { feature: Feature }) {
 export default function Pricing() {
   return (
     <section id="precios" className="bg-wv-bg">
-      <div className="mx-auto max-w-[1160px] px-6 py-16 sm:px-8 md:py-20">
-        <div className="mx-auto mb-12 flex max-w-[560px] flex-col items-center gap-3.5 text-center">
+      <div className="mx-auto max-w-290 px-6 py-16 sm:px-8 md:py-20">
+        <div className="mx-auto mb-12 flex max-w-140 flex-col items-center gap-3.5 text-center">
           <PawMark
             size={18}
             color="var(--color-wv-teal)"
@@ -62,7 +62,7 @@ export default function Pricing() {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-[860px] gap-6 sm:grid-cols-2">
+        <div className="mx-auto grid max-w-215 gap-6 sm:grid-cols-2">
           {/* Emprendedor */}
           <div className="flex flex-col gap-5 rounded-[18px] border border-wv-border bg-white p-9">
             <div className="flex flex-col gap-2">
@@ -88,7 +88,7 @@ export default function Pricing() {
             </div>
             <Link
               href="/login"
-              className="mt-auto flex h-[52px] items-center justify-center rounded-xl border-[1.5px] border-wv-border text-base font-extrabold text-wv-navy outline-none transition-colors duration-200 ease-out hover:border-wv-teal focus-visible:shadow-focus active:scale-[0.97]"
+              className="mt-auto flex h-13 items-center justify-center rounded-xl border-[1.5px] border-wv-border text-base font-extrabold text-wv-navy outline-none transition-colors duration-200 ease-out hover:border-wv-teal focus-visible:shadow-focus active:scale-[0.97]"
             >
               Empezar prueba gratis
             </Link>
@@ -119,7 +119,7 @@ export default function Pricing() {
               {proFeatures.map((f, i) =>
                 i === 0 ? (
                   <div key={f.text} className="flex items-center gap-2.5">
-                    <span className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full bg-wv-mint-soft text-[11px] font-extrabold text-wv-teal-hover">
+                    <span className="grid h-4.5 w-4.5 shrink-0 place-items-center rounded-full bg-wv-mint-soft text-[11px] font-extrabold text-wv-teal-hover">
                       ✓
                     </span>
                     <span className="text-[15px] text-wv-muted">
@@ -133,7 +133,7 @@ export default function Pricing() {
             </div>
             <Link
               href="/login"
-              className="mt-auto flex h-[52px] items-center justify-center rounded-xl bg-wv-teal text-base font-extrabold text-white shadow-[0_8px_20px_rgba(14,140,111,0.25)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97]"
+              className="mt-auto flex h-13 items-center justify-center rounded-xl bg-wv-teal text-base font-extrabold text-white shadow-[0_8px_20px_rgba(14,140,111,0.25)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97]"
             >
               Empezar prueba gratis
             </Link>

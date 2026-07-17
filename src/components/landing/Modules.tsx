@@ -10,8 +10,8 @@ export default function Modules() {
 
   return (
     <section id="modulos" className="border-t border-wv-border bg-white">
-      <div className="mx-auto max-w-[1160px] px-6 py-16 sm:px-8 md:py-20">
-        <div className="mx-auto mb-11 flex max-w-[620px] flex-col items-center gap-3.5 text-center">
+      <div className="mx-auto max-w-290 px-6 py-16 sm:px-8 md:py-20">
+        <div className="mx-auto mb-11 flex max-w-155 flex-col items-center gap-3.5 text-center">
           <PawMark
             size={18}
             color="var(--color-wv-teal)"
@@ -52,12 +52,12 @@ export default function Modules() {
           })}
         </div>
 
-        <p className="mx-auto mb-8 max-w-[560px] text-center text-sm font-semibold leading-relaxed text-wv-faint">
+        <p className="mx-auto mb-8 max-w-140 text-center text-sm font-semibold leading-relaxed text-wv-faint">
           Los recordatorios por WhatsApp y la facturación SUNAT son los
           últimos módulos del roadmap: llegan al final del desarrollo.
         </p>
 
-        <div className="grid min-h-[300px] gap-11 rounded-[18px] border border-wv-border bg-wv-bg p-6 sm:p-11 md:grid-cols-2 md:items-center">
+        <div className="grid min-h-75 gap-11 rounded-[18px] border border-wv-border bg-wv-bg p-6 sm:p-11 md:grid-cols-2 md:items-center">
           <div
             key={active.label}
             className="flex flex-col gap-4 transition-opacity duration-200 ease-out"
@@ -74,7 +74,7 @@ export default function Modules() {
             <div className="mt-1 flex flex-col gap-2.5">
               {active.points.map((point) => (
                 <div key={point} className="flex items-center gap-2.5">
-                  <span className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full bg-wv-mint text-[11px] font-extrabold text-white">
+                  <span className="grid h-4.5 w-4.5 shrink-0 place-items-center rounded-full bg-wv-mint text-[11px] font-extrabold text-white">
                     ✓
                   </span>
                   <span className="text-[15px] font-semibold text-wv-ink">
@@ -85,7 +85,7 @@ export default function Modules() {
             </div>
           </div>
 
-          <div className="grid h-[280px] place-items-center rounded-2xl border-[1.5px] border-dashed border-[#B9CFC7] [background:repeating-linear-gradient(45deg,#EAF2EF,#EAF2EF_10px,#E1ECE8_10px,#E1ECE8_20px)]">
+          <div className="grid h-70 place-items-center rounded-2xl border-[1.5px] border-dashed border-[#B9CFC7] [background:repeating-linear-gradient(45deg,#EAF2EF,#EAF2EF_10px,#E1ECE8_10px,#E1ECE8_20px)]">
             <span className="rounded-lg bg-white/85 px-3.5 py-2 font-mono text-[13px] text-wv-muted-2">
               {active.placeholder}
             </span>

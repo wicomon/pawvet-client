@@ -26,7 +26,7 @@ export default function MenusManager() {
   const menus = [...(data?.menuFindAll ?? [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   return (
-    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-[22px]">
+    <section className="flex flex-col gap-3.5 rounded-2xl border border-wv-border bg-card px-6 py-5.5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="font-heading text-[17px] font-bold text-wv-navy">Menús</h2>
@@ -40,7 +40,7 @@ export default function MenusManager() {
             setCreateParentId(undefined);
             setFormTarget(null);
           }}
-          className="cursor-pointer rounded-[10px] bg-wv-teal px-3.5 py-[9px] text-[13px] font-extrabold text-white outline-none transition-colors duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus"
+          className="cursor-pointer rounded-[10px] bg-wv-teal px-3.5 py-2.25 text-[13px] font-extrabold text-white outline-none transition-colors duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus"
         >
           + Nuevo menú
         </button>
@@ -61,7 +61,7 @@ export default function MenusManager() {
       {loading && (
         <div className="flex flex-col gap-1.5" aria-hidden="true">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="h-[52px] animate-pulse rounded-[10px] bg-wv-bg-alt" />
+            <div key={i} className="h-13 animate-pulse rounded-[10px] bg-wv-bg-alt" />
           ))}
         </div>
       )}

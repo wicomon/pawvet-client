@@ -44,7 +44,7 @@ export default function ConfirmDialog({ role, onClose, onDeleted, onError }: Con
           type="button"
           onClick={onClose}
           disabled={pending}
-          className="cursor-pointer rounded-[10px] px-3.5 py-[9px] text-[13.5px] font-extrabold text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus disabled:cursor-not-allowed"
+          className="cursor-pointer rounded-[10px] px-3.5 py-2.25 text-[13.5px] font-extrabold text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus disabled:cursor-not-allowed"
         >
           Cancelar
         </button>
@@ -52,7 +52,7 @@ export default function ConfirmDialog({ role, onClose, onDeleted, onError }: Con
           type="button"
           onClick={handleConfirm}
           disabled={pending}
-          className="cursor-pointer rounded-[10px] bg-danger px-3.5 py-[9px] text-[13.5px] font-extrabold text-white outline-none transition-colors duration-150 ease-out hover:opacity-90 focus-visible:shadow-focus disabled:cursor-not-allowed disabled:opacity-70"
+          className="cursor-pointer rounded-[10px] bg-danger px-3.5 py-2.25 text-[13.5px] font-extrabold text-white outline-none transition-colors duration-150 ease-out hover:opacity-90 focus-visible:shadow-focus disabled:cursor-not-allowed disabled:opacity-70"
         >
           {pending ? "Eliminando…" : "Eliminar"}
         </button>

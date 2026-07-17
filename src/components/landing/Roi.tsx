@@ -9,7 +9,7 @@ const roiRows = [
 export default function Roi() {
   return (
     <section id="roi" className="bg-wv-navy">
-      <div className="mx-auto grid max-w-[1160px] items-center gap-12 px-6 py-16 sm:px-8 md:py-20 lg:grid-cols-2 lg:gap-14">
+      <div className="mx-auto grid max-w-290 items-center gap-12 px-6 py-16 sm:px-8 md:py-20 lg:grid-cols-2 lg:gap-14">
         <div className="flex flex-col gap-4">
           <span className="w-fit rounded-full bg-[rgba(23,190,154,0.14)] px-3 py-1.5 text-xs font-extrabold uppercase tracking-wide text-wv-mint">
             Una ayuda real para tu caja
@@ -25,7 +25,7 @@ export default function Roi() {
           </p>
           <Link
             href="/login"
-            className="mt-1.5 flex h-[52px] w-fit items-center rounded-xl bg-wv-mint px-6 text-base font-extrabold text-[#06231B] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-mint-bright focus-visible:shadow-focus active:scale-[0.97]"
+            className="mt-1.5 flex h-13 w-fit items-center rounded-xl bg-wv-mint px-6 text-base font-extrabold text-[#06231B] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-mint-bright focus-visible:shadow-focus active:scale-[0.97]"
           >
             Calcula tu retorno →
           </Link>

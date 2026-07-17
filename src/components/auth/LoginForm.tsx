@@ -20,7 +20,7 @@ export default function LoginForm() {
       action={formAction}
       className="flex flex-col gap-4 animate-[rise_400ms_var(--ease-out-strong)_100ms_both]"
     >
-      <div className="flex flex-col gap-[7px]">
+      <div className="flex flex-col gap-1.75">
         <label htmlFor={emailId} className="text-[13px] font-extrabold text-wv-navy">
           Correo electrónico
         </label>
@@ -32,7 +32,7 @@ export default function LoginForm() {
           autoComplete="email"
           aria-invalid={emailInvalid}
           aria-describedby={emailInvalid ? errorId : undefined}
-          className={`w-full h-[50px] rounded-field border-[1.5px] bg-white px-[15px] text-[15px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus ${
+          className={`w-full h-12.5 rounded-field border-[1.5px] bg-white px-3.75 text-[15px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus ${
             emailInvalid ? "border-danger-border" : "border-wv-btn-border"
           }`}
         />
@@ -43,7 +43,7 @@ export default function LoginForm() {
         ))}
       </div>
 
-      <div className="flex flex-col gap-[7px]">
+      <div className="flex flex-col gap-1.75">
         <div className="flex items-baseline justify-between">
           <label htmlFor={passwordId} className="text-[13px] font-extrabold text-wv-navy">
             Contraseña
@@ -65,7 +65,7 @@ export default function LoginForm() {
             autoComplete="current-password"
             aria-invalid={passwordInvalid}
             aria-describedby={passwordInvalid ? errorId : undefined}
-            className={`w-full h-[50px] rounded-field border-[1.5px] bg-white pl-[15px] pr-[52px] text-[15px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus ${
+            className={`w-full h-12.5 rounded-field border-[1.5px] bg-white pl-3.75 pr-13 text-[15px] font-semibold text-wv-navy outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-wv-faint focus-visible:border-wv-teal focus-visible:shadow-focus ${
               passwordInvalid ? "border-danger-border" : "border-wv-btn-border"
             }`}
           />
@@ -88,7 +88,7 @@ export default function LoginForm() {
 
       <label
         htmlFor={rememberId}
-        className="flex items-center gap-[9px] cursor-pointer select-none"
+        className="flex items-center gap-2.25 cursor-pointer select-none"
       >
         <input
           id={rememberId}
@@ -115,7 +115,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-0.5 h-[52px] w-full flex items-center justify-center gap-2.5 rounded-[11px] bg-wv-teal text-[15.5px] font-extrabold text-white shadow-[0_8px_22px_rgba(14,140,111,0.26)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97] disabled:cursor-not-allowed"
+        className="mt-0.5 h-13 w-full flex items-center justify-center gap-2.5 rounded-[11px] bg-wv-teal text-[15.5px] font-extrabold text-white shadow-[0_8px_22px_rgba(14,140,111,0.26)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97] disabled:cursor-not-allowed"
       >
         {pending && (
           <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-[spin_500ms_linear_infinite]" />

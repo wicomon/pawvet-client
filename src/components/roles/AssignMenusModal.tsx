@@ -77,7 +77,7 @@ export default function AssignMenusModal({ role, onClose, onSaved, onError }: As
         {loading && (
           <div className="flex flex-col gap-1.5" aria-hidden="true">
             {[0, 1, 2].map((i) => (
-              <div key={i} className="h-[42px] animate-pulse rounded-[10px] bg-wv-bg-alt" />
+              <div key={i} className="h-10.5 animate-pulse rounded-[10px] bg-wv-bg-alt" />
             ))}
           </div>
         )}
@@ -92,14 +92,14 @@ export default function AssignMenusModal({ role, onClose, onSaved, onError }: As
         )}
 
         {!loading && !error && (
-          <div className="flex max-h-[320px] flex-col gap-1.5 overflow-y-auto">
+          <div className="flex max-h-80 flex-col gap-1.5 overflow-y-auto">
             {menus.map((menu) => {
               const fieldId = `assign-menu-${menu.id}`;
               return (
                 <label
                   key={menu.id}
                   htmlFor={fieldId}
-                  className="flex cursor-pointer items-center gap-2.5 rounded-[10px] border-[1.5px] border-wv-btn-border bg-white px-[15px] py-2.5 transition-colors duration-150 ease-out hover:bg-wv-mint-soft/40"
+                  className="flex cursor-pointer items-center gap-2.5 rounded-[10px] border-[1.5px] border-wv-btn-border bg-white px-3.75 py-2.5 transition-colors duration-150 ease-out hover:bg-wv-mint-soft/40"
                 >
                   <input
                     id={fieldId}
@@ -121,11 +121,11 @@ export default function AssignMenusModal({ role, onClose, onSaved, onError }: As
             type="button"
             onClick={onClose}
             disabled={pending}
-            className="cursor-pointer rounded-[10px] px-3.5 py-[9px] text-[13.5px] font-extrabold text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus disabled:cursor-not-allowed"
+            className="cursor-pointer rounded-[10px] px-3.5 py-2.25 text-[13.5px] font-extrabold text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft focus-visible:shadow-focus disabled:cursor-not-allowed"
           >
             Cancelar
           </button>
-          <div className="w-[180px]">
+          <div className="w-45">
             <SubmitButton label="Guardar asignación" pendingLabel="Guardando…" pending={pending} />
           </div>
         </div>

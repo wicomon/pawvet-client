@@ -50,14 +50,14 @@ export default function DataTable<T>({
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[760px] border-separate border-spacing-y-1.5">
+      <table className="w-full min-w-190 border-separate border-spacing-y-1.5">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="px-3.5 pb-1.5 text-left text-[11.5px] font-extrabold tracking-[0.05em] text-wv-faint uppercase"
+                  className="px-3.5 pb-1.5 text-left text-[11.5px] font-extrabold tracking-wider text-wv-faint uppercase"
                 >
                   {header.isPlaceholder
                     ? null
@@ -71,7 +71,7 @@ export default function DataTable<T>({
           {table.getRowModel().rows.map((row) => {
             const cells = row.getVisibleCells();
             const rowBg = row.depth > 0 ? "border-wv-row-border/70 bg-wv-bg-alt" : "border-wv-row-border";
-            const rowPad = row.depth > 0 ? "py-[10px]" : "py-[13px]";
+            const rowPad = row.depth > 0 ? "py-2.5" : "py-3.25";
             return (
               <tr key={row.id}>
                 {cells.map((cell, i) => (

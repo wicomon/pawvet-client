@@ -4,11 +4,11 @@ import { BRAND, SALES_EMAIL, whatsappUrl } from "./content";
 export default function Footer() {
   return (
     <footer className="bg-wv-navy-deep text-[#9FB6C9]">
-      <div className="mx-auto flex max-w-[1160px] flex-col gap-10 px-6 py-14 pb-10 sm:px-8">
+      <div className="mx-auto flex max-w-290 flex-col gap-10 px-6 py-14 pb-10 sm:px-8">
         <div className="flex flex-wrap items-start justify-between gap-10">
-          <div className="flex max-w-[300px] flex-col gap-3.5">
+          <div className="flex max-w-75 flex-col gap-3.5">
             <div className="flex items-center gap-2.5">
-              <span className="grid h-[30px] w-[30px] place-items-center rounded-[9px] bg-wv-mint">
+              <span className="grid h-7.5 w-7.5 place-items-center rounded-[9px] bg-wv-mint">
                 <BrandIcon size={16} tone="navy" />
               </span>
               <span className="font-heading text-lg font-bold text-white">

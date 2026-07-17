@@ -19,7 +19,7 @@ export default function Error({
 
   return (
     <div className="min-h-screen bg-page flex items-center justify-center p-10">
-      <div className="w-[440px] max-w-full bg-card border border-subtle rounded-card shadow-card px-9 py-10 flex flex-col items-start gap-3">
+      <div className="w-110 max-w-full bg-card border border-subtle rounded-card shadow-card px-9 py-10 flex flex-col items-start gap-3">
         <div className="w-11 h-11 rounded-2xl bg-danger-bg text-danger flex items-center justify-center font-extrabold text-xl">
           !
         </div>
@@ -37,13 +37,13 @@ export default function Error({
           <button
             type="button"
             onClick={reset}
-            className="h-[46px] px-[22px] rounded-field bg-brand hover:bg-brand-hover text-on-brand font-display font-bold text-sm cursor-pointer transition-[transform,background-color] duration-200 active:scale-[0.97]"
+            className="h-11.5 px-5.5 rounded-field bg-brand hover:bg-brand-hover text-on-brand font-display font-bold text-sm cursor-pointer transition-[transform,background-color] duration-200 active:scale-[0.97]"
           >
             Reintentar
           </button>
           <Link
             href="/"
-            className="h-[46px] px-[22px] rounded-field border-[1.5px] border-subtle text-ink font-semibold text-sm flex items-center transition-transform duration-200 active:scale-[0.97]"
+            className="h-11.5 px-5.5 rounded-field border-[1.5px] border-subtle text-ink font-semibold text-sm flex items-center transition-transform duration-200 active:scale-[0.97]"
           >
             Ir al inicio
           </Link>

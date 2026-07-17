@@ -6,7 +6,7 @@ export default function KpiGrid() {
       {KPIS.map((kpi) => (
         <div
           key={kpi.label}
-          className="flex flex-col gap-2 rounded-[14px] border border-wv-border bg-card px-5 py-[18px]"
+          className="flex flex-col gap-2 rounded-[14px] border border-wv-border bg-card px-5 py-4.5"
         >
           <span className="text-[12.5px] font-extrabold tracking-[0.04em] text-wv-faint uppercase">
             {kpi.label}

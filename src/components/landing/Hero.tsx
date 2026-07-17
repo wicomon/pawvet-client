@@ -12,7 +12,7 @@ const weightBars = [
 export default function Hero() {
   return (
     <section className="overflow-hidden bg-gradient-to-b from-wv-bg to-wv-bg-alt">
-      <div className="mx-auto grid max-w-[1160px] items-center gap-12 px-6 py-16 sm:px-8 md:py-20 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+      <div className="mx-auto grid max-w-290 items-center gap-12 px-6 py-16 sm:px-8 md:py-20 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
         <div className="flex flex-col gap-5 animate-[rise_400ms_var(--ease-out-strong)_both]">
           <div className="inline-flex w-fit items-center gap-2 rounded-full bg-wv-mint-soft px-3.5 py-1.5 text-[13px] font-bold tracking-wide text-wv-teal-hover">
             <PawMark size={13} color="var(--color-wv-mint)" />
@@ -23,7 +23,7 @@ export default function Hero() {
             Tu clínica ordenada. Tus pacientes que sí regresan.
           </h1>
 
-          <p className="max-w-[480px] text-lg leading-relaxed text-wv-muted">
+          <p className="max-w-120 text-lg leading-relaxed text-wv-muted">
             Deja el Excel y los cuadernos. {BRAND} gestiona expedientes, citas
             y caja en la nube — y trae de vuelta a cada paciente con
             recordatorios automáticos por WhatsApp.
@@ -32,13 +32,13 @@ export default function Hero() {
           <div className="mt-1.5 flex flex-wrap gap-3.5">
             <Link
               href="/login"
-              className="flex h-[54px] items-center rounded-xl bg-wv-teal px-7 text-[17px] font-extrabold text-white shadow-[0_8px_24px_rgba(14,140,111,0.28)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97]"
+              className="flex h-13.5 items-center rounded-xl bg-wv-teal px-7 text-[17px] font-extrabold text-white shadow-[0_8px_24px_rgba(14,140,111,0.28)] outline-none transition-[background-color,transform] duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus active:scale-[0.97]"
             >
               Prueba gratis por {TRIAL_DAYS} días
             </Link>
             <a
               href="#modulos"
-              className="flex h-[54px] items-center rounded-xl border-[1.5px] border-wv-border bg-white px-7 text-[17px] font-bold text-wv-navy outline-none transition-colors duration-200 ease-out hover:border-wv-teal focus-visible:shadow-focus"
+              className="flex h-13.5 items-center rounded-xl border-[1.5px] border-wv-border bg-white px-7 text-[17px] font-bold text-wv-navy outline-none transition-colors duration-200 ease-out hover:border-wv-teal focus-visible:shadow-focus"
             >
               Ver demo
             </a>
@@ -57,9 +57,9 @@ export default function Hero() {
         <div className="relative animate-[rise_400ms_var(--ease-out-strong)_80ms_both]">
           <div className="overflow-hidden rounded-[18px] border border-wv-border bg-white shadow-[0_24px_60px_rgba(11,43,69,0.14)]">
             <div className="flex h-10 items-center gap-1.5 bg-wv-navy px-4">
-              <span className="h-[9px] w-[9px] rounded-full bg-[#274A68]" />
-              <span className="h-[9px] w-[9px] rounded-full bg-[#274A68]" />
-              <span className="h-[9px] w-[9px] rounded-full bg-[#274A68]" />
+              <span className="h-2.25 w-2.25 rounded-full bg-[#274A68]" />
+              <span className="h-2.25 w-2.25 rounded-full bg-[#274A68]" />
+              <span className="h-2.25 w-2.25 rounded-full bg-[#274A68]" />
               <span className="ml-3 text-xs font-semibold text-[#9FB6C9]">
                 wicovet.pe/dashboard
               </span>
@@ -98,7 +98,7 @@ export default function Hero() {
                       28.4 kg
                     </span>
                   </div>
-                  <div className="flex h-[74px] items-end gap-2">
+                  <div className="flex h-18.5 items-end gap-2">
                     {weightBars.map((bar) => (
                       <div
                         key={bar.month}
@@ -138,7 +138,7 @@ export default function Hero() {
                     </div>
                   </div>
                   <div className="flex items-center gap-1.5 rounded-lg border border-[#F0DFB6] bg-wv-amber-bg px-2.5 py-1.5 text-[11.5px] font-extrabold text-wv-amber-ink">
-                    <span className="h-[7px] w-[7px] rounded-full bg-[#E4B54B]" />
+                    <span className="h-1.75 w-1.75 rounded-full bg-[#E4B54B]" />
                     Factura SUNAT · Próximamente
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function Hero() {
           {/* Decorative glow */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-[30px] -right-[30px] h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(23,190,154,0.18),transparent_70%)]"
+            className="pointer-events-none absolute -bottom-7.5 -right-7.5 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(23,190,154,0.18),transparent_70%)]"
           />
 
           {/* Decorative floating paws */}

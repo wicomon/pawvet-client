@@ -20,13 +20,13 @@ export default function Topbar({ onOpenMenu }: TopbarProps) {
         type="button"
         onClick={onOpenMenu}
         aria-label="Abrir menú de navegación"
-        className="grid h-[42px] w-[42px] shrink-0 cursor-pointer place-items-center rounded-[10px] border-[1.5px] border-wv-btn-border bg-card outline-none focus-visible:shadow-focus lg:hidden"
+        className="grid h-10.5 w-10.5 shrink-0 cursor-pointer place-items-center rounded-[10px] border-[1.5px] border-wv-btn-border bg-card outline-none focus-visible:shadow-focus lg:hidden"
       >
-        <Menu aria-hidden="true" className="h-[18px] w-[18px] text-wv-navy" strokeWidth={2.25} />
+        <Menu aria-hidden="true" className="h-4.5 w-4.5 text-wv-navy" strokeWidth={2.25} />
       </button>
 
-      <div className="hidden max-w-[420px] flex-1 items-center gap-2.5 rounded-[10px] border border-wv-border bg-wv-canvas px-3.5 py-2.5 sm:flex">
-        <Search aria-hidden="true" className="h-[18px] w-[18px] shrink-0 text-wv-faint" strokeWidth={2} />
+      <div className="hidden max-w-105 flex-1 items-center gap-2.5 rounded-[10px] border border-wv-border bg-wv-canvas px-3.5 py-2.5 sm:flex">
+        <Search aria-hidden="true" className="h-4.5 w-4.5 shrink-0 text-wv-faint" strokeWidth={2} />
         <span className="text-sm font-semibold text-wv-faint">
           Buscar paciente, dueño o teléfono…
         </span>
@@ -38,7 +38,7 @@ export default function Topbar({ onOpenMenu }: TopbarProps) {
         </span>
         <button
           type="button"
-          className="cursor-pointer whitespace-nowrap rounded-[10px] bg-wv-teal px-[18px] py-2.5 text-sm font-extrabold text-white shadow-[0_6px_16px_rgba(14,140,111,0.22)] outline-none transition-colors duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus"
+          className="cursor-pointer whitespace-nowrap rounded-[10px] bg-wv-teal px-4.5 py-2.5 text-sm font-extrabold text-white shadow-[0_6px_16px_rgba(14,140,111,0.22)] outline-none transition-colors duration-150 ease-out hover:bg-wv-teal-hover focus-visible:shadow-focus"
         >
           + Nueva cita
         </button>

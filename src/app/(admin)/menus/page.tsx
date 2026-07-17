@@ -9,7 +9,7 @@ export default async function MenusPage() {
   if (!isRoot) {
     return (
       <div className="flex flex-col items-center gap-2 rounded-2xl border border-wv-border bg-card px-6 py-14 text-center">
-        <p className="font-heading text-[16px] font-bold text-wv-navy">Sin acceso</p>
+        <p className="font-heading text-base font-bold text-wv-navy">Sin acceso</p>
         <p className="text-[13.5px] font-semibold text-wv-muted">
           Esta sección solo está disponible para el rol ROOT.
         </p>

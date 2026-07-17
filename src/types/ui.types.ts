@@ -1,0 +1,1 @@
+export type Toast = { kind: "success" | "error"; message: string };
