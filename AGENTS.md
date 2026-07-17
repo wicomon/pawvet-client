@@ -12,6 +12,14 @@ Your training data is outdated — the docs are the source of truth.
 - App Router under `src/app/`, path alias `@/*` → `src/*`.
 - Server Components by default; add `"use client"` only for interactivity (state, effects,
   browser APIs).
+- Components: page-specific components are colocated in a private `_components/` folder next to
+  the `page.tsx`/`layout.tsx` that uses them (e.g. `src/app/(admin)/menus/_components/`) — Next.js
+  excludes `_`-prefixed folders from routing, so these are never publicly reachable. Only
+  components genuinely shared across routes live in `src/components/` (`ui/`, `forms/fields/`,
+  `brand/`, `layout/` for the admin shell). Data/copy modules shared across pages live in
+  `src/content/` (e.g. `src/content/brand.ts`, `src/content/dashboard.ts`); icon-name resolvers
+  and other cross-cutting helpers live in `src/lib/`. Don't redefine a page's own copy in
+  `src/content/` — keep it in that page's `_components/content.ts` unless another route needs it.
 - Auth: session cookie is `httpOnly`, set from the server via `next/headers` (`src/lib/session.ts`).
   Login runs as a Server Action (`src/app/actions/auth.ts`). Session/role checks go through the
   Data Access Layer in `src/lib/dal.ts` (`verifySession`, `getUser`, memoized with React's `cache`).
@@ -26,5 +34,5 @@ Your training data is outdated — the docs are the source of truth.
 - Tables: use `@tanstack/react-table` via the shared wrapper `src/components/ui/DataTable.tsx`
   (headless — styled with `wv-*` tokens, not a component library). Define a `ColumnDef<T>[]` for
   the screen and pass it with `data`; don't hand-roll table markup. See
-  `src/components/menus/menuColumns.tsx` + `MenuTable.tsx` for the reference usage, including
-  nested rows via `getSubRows`.
+  `src/app/(admin)/menus/_components/menuColumns.tsx` + `MenuTable.tsx` for the reference usage,
+  including nested rows via `getSubRows`.

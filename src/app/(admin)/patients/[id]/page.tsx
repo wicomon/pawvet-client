@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import PatientHeader from "@/components/dashboard/patient/PatientHeader";
+import PatientHeader from "../_components/PatientHeader";
 import PatientTabNav, {
   PATIENT_TAB_KEYS,
   type PatientTabKey,
-} from "@/components/dashboard/patient/PatientTabNav";
-import ClinicalHistory from "@/components/dashboard/patient/ClinicalHistory";
-import VaccineTable from "@/components/dashboard/patient/VaccineTable";
-import AppointmentHistory from "@/components/dashboard/patient/AppointmentHistory";
-import PurchaseHistory from "@/components/dashboard/patient/PurchaseHistory";
-import { PATIENT } from "@/components/dashboard/patient/content";
+} from "../_components/PatientTabNav";
+import ClinicalHistory from "../_components/ClinicalHistory";
+import VaccineTable from "../_components/VaccineTable";
+import AppointmentHistory from "../_components/AppointmentHistory";
+import PurchaseHistory from "../_components/PurchaseHistory";
+import { PATIENT } from "../_components/content";
 
 export const metadata: Metadata = {
   title: "Expediente de mascota — VetFlow",

@@ -1,7 +1,7 @@
-import DaySelector from "@/components/dashboard/schedule/DaySelector";
-import WeekGrid from "@/components/dashboard/schedule/WeekGrid";
-import ScheduleEmptyState from "@/components/dashboard/schedule/ScheduleEmptyState";
-import { SCHEDULE_DAYS } from "@/components/dashboard/schedule/content";
+import DaySelector from "./_components/DaySelector";
+import WeekGrid from "./_components/WeekGrid";
+import ScheduleEmptyState from "./_components/ScheduleEmptyState";
+import { SCHEDULE_DAYS } from "./_components/content";
 
 type SchedulePageProps = {
   searchParams: Promise<{ day?: string }>;

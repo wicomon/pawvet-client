@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import AuthModeTabs from "@/components/auth/AuthModeTabs";
-import LoginForm from "@/components/auth/LoginForm";
-import RegisterForm from "@/components/auth/RegisterForm";
-import { authCopy, type AuthMode } from "@/components/auth/content";
+import AuthModeTabs from "../_components/AuthModeTabs";
+import LoginForm from "../_components/LoginForm";
+import RegisterForm from "../_components/RegisterForm";
+import { authCopy, type AuthMode } from "../_components/content";
 
 export const metadata: Metadata = {
   title: "Acceso — PawControl",

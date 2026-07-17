@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { getUser } from "@/lib/dal";
-import DashboardGreeting from "@/components/dashboard/DashboardGreeting";
-import KpiGrid from "@/components/dashboard/KpiGrid";
-import TodaySchedule from "@/components/dashboard/TodaySchedule";
-import DueVaccines from "@/components/dashboard/DueVaccines";
-import LowStock from "@/components/dashboard/LowStock";
-import RecentSales from "@/components/dashboard/RecentSales";
+import DashboardGreeting from "./_components/DashboardGreeting";
+import KpiGrid from "./_components/KpiGrid";
+import TodaySchedule from "./_components/TodaySchedule";
+import DueVaccines from "./_components/DueVaccines";
+import LowStock from "./_components/LowStock";
+import RecentSales from "./_components/RecentSales";
 
 export const metadata: Metadata = {
   title: "Panel — PawControl",

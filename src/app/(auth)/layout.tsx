@@ -1,7 +1,7 @@
 import Link from "next/link";
 import BrandIcon from "@/components/brand/BrandIcon";
-import AuthBrandPanel from "@/components/auth/AuthBrandPanel";
-import { BRAND } from "@/components/landing/content";
+import AuthBrandPanel from "./_components/AuthBrandPanel";
+import { BRAND } from "@/content/brand";
 
 export default function AuthLayout({
   children,

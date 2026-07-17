@@ -1,5 +1,5 @@
 import { getUser } from "@/lib/dal";
-import DashboardShell from "@/components/dashboard/DashboardShell";
+import DashboardShell from "@/components/layout/DashboardShell";
 import ApolloWrapper from "@/lib/apollo/ApolloWrapper";
 
 export default async function DashboardLayout({

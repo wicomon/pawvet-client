@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getUser } from "@/lib/dal";
-import RolesManager from "@/components/roles/RolesManager";
+import RolesManager from "./_components/RolesManager";
 
 export default async function RolesPage() {
   const user = await getUser();

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getUser } from "@/lib/dal";
-import MenusManager from "@/components/menus/MenusManager";
+import MenusManager from "./_components/MenusManager";
 
 export default async function MenusPage() {
   const user = await getUser();
