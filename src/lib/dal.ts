@@ -27,6 +27,15 @@ export const getUser = cache(async (): Promise<ContextUser | null> => {
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
   if (!backendUrl) return null;
 
+  // Fetch failures are caught here, but redirect() below must run outside
+  // this try/catch — it throws Next.js's internal NEXT_REDIRECT signal,
+  // which a wrapping catch{} would otherwise swallow. This is a
+  // defense-in-depth path: verifySession() should already have redirected
+  // on an invalid/expired token, but if authUserInfo fails independently
+  // (e.g. the token expires between the two backend calls), the layout
+  // can't render anything useful without a user — redirecting is safer
+  // than falling back to an empty sidebar.
+  let json: { data?: { authUserInfo?: ContextUser }; errors?: unknown[] } | null = null;
   try {
     const res = await fetch(backendUrl, {
       method: "POST",
@@ -39,13 +48,15 @@ export const getUser = cache(async (): Promise<ContextUser | null> => {
       signal: AbortSignal.timeout(BACKEND_TIMEOUT_MS),
     });
 
-    if (!res.ok) return null;
-
-    const { data, errors } = await res.json();
-    if (errors?.length) return null;
-
-    return (data?.authUserInfo as ContextUser) ?? null;
+    if (res.ok) json = await res.json();
   } catch {
-    return null;
+    json = null;
   }
+
+  const user = json?.data?.authUserInfo;
+  if (!user || (json?.errors?.length ?? 0) > 0) {
+    redirect("/login");
+  }
+
+  return user;
 });

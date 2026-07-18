@@ -29,7 +29,11 @@ export async function isLogged(token: string): Promise<boolean> {
     const { data, errors } = await res.json();
     if (errors?.length) return false;
 
-    return Boolean(data?.authValidateToken);
+    // The backend resolver types authValidateToken as String (see
+    // pawvet-server/src/auth/auth.resolver.ts), so a `false` result arrives
+    // as the string "false" — `Boolean("false")` would be truthy and defeat
+    // this check entirely. Compare explicitly instead of coercing.
+    return data?.authValidateToken === true || data?.authValidateToken === "true";
   } catch {
     return false;
   }
