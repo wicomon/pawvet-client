@@ -1,8 +1,16 @@
 import Link from "next/link";
 import { getUser } from "@/lib/dal";
-import CompanyManager from "./_components/list/CompanyManager";
+import CompanyDetail from "../_components/detail/CompanyDetail";
 
-export default async function CompanyPage() {
+type CompanyDetailPageProps = {
+  params: Promise<{ id: string }>;
+};
+
+// Mirrors src/app/(admin)/patients/[id]/page.tsx: async server component,
+// params is a Promise in this Next.js version so it's awaited before use.
+// Same ROOT gate as src/app/(admin)/company/page.tsx.
+export default async function CompanyDetailPage({ params }: CompanyDetailPageProps) {
+  const { id } = await params;
   const user = await getUser();
   const isRoot = user?.role.slug === "root";
 
@@ -33,10 +41,17 @@ export default async function CompanyPage() {
           ← Dashboard
         </Link>
         <span>/</span>
-        <span className="text-wv-navy">Empresas</span>
+        <Link
+          href="/company"
+          className="font-extrabold text-wv-teal outline-none transition-colors duration-150 ease-out hover:text-wv-teal-hover focus-visible:shadow-focus"
+        >
+          Empresas
+        </Link>
+        <span>/</span>
+        <span className="text-wv-navy">Detalle</span>
       </div>
 
-      <CompanyManager />
+      <CompanyDetail companyId={id} />
     </>
   );
 }

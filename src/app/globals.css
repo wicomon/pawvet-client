@@ -5,6 +5,12 @@
    Design tokens — raw values, light theme (default)
    ============================================================ */
 :root {
+  /* App is intentionally light-only (see `wv-*` tokens below, which have no
+     dark variant on purpose). `color-scheme: light` keeps native controls
+     (inputs, scrollbars, date pickers) rendering light even when the OS is
+     in dark mode, matching the rest of the UI. */
+  color-scheme: light;
+
   --color-brand: #3d4ff0;
   --color-brand-hover: #3243d6;
   --color-accent: #f5a524;
@@ -82,39 +88,13 @@
   --color-wv-mint-mid: #9bd6c4;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-brand: #5866f3;
-    --color-brand-hover: #6b78f6;
-    --color-accent: #f5a524;
-    --color-accent-ink: #1c2135;
-
-    --color-page: #0d1020;
-    --color-card: #151a2e;
-    --color-field: #1b2138;
-    --color-track: #1b2138;
-    --color-divider: #252c47;
-
-    --color-ink: #eef1fa;
-    --color-label: #aab2cc;
-    --color-muted: #8891ad;
-    --color-placeholder: #5a6486;
-    --color-subtle: #2a3150;
-    --color-on-brand: #ffffff;
-    --color-on-brand-muted: rgb(255 255 255 / 75%);
-    --color-on-brand-faint: rgb(255 255 255 / 14%);
-    --color-on-brand-line: rgb(255 255 255 / 35%);
-
-    --color-success: #22c55e;
-    --color-danger: #f87155;
-    --color-danger-bg: #2a1a17;
-    --color-danger-border: #7a3a2a;
-
-    --shadow-card: 0 30px 70px -30px rgb(0 0 0 / 55%);
-    --shadow-pill: 0 6px 14px -8px rgb(0 0 0 / 45%);
-    --shadow-focus: 0 0 0 3px rgb(88 102 243 / 22%);
-  }
-}
+/* No `@media (prefers-color-scheme: dark)` override here on purpose: the
+   `wv-*` tokens above have no dark variant, so flipping only these semantic
+   tokens (bg-card, text-ink, ...) produced dark-on-dark surfaces (dark card
+   background with the still-dark `wv-*` text painted on top). The whole app
+   is pinned to light via `color-scheme: light` on `:root` instead — see the
+   comment there. If dark mode is ever built for real, both token families
+   need dark variants added together. */
 
 /* ============================================================
    Tailwind theme mapping — exposes tokens as utilities

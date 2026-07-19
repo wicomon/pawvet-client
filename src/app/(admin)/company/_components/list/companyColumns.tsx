@@ -1,13 +1,18 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import { Pencil, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 import type { Company } from "@/types/company";
+import type { Subscription } from "@/types/billing";
+import { SUBSCRIPTION_STATUS_BADGE, SUBSCRIPTION_STATUS_LABEL, formatDate } from "@/lib/billing";
 
 type BuildCompanyColumnsArgs = {
+  subscriptionsByCompanyId?: Map<string, Subscription>;
   onEdit: (company: Company) => void;
   onDelete: (company: Company) => void;
 };
 
 export function buildCompanyColumns({
+  subscriptionsByCompanyId,
   onEdit,
   onDelete,
 }: BuildCompanyColumnsArgs): ColumnDef<Company>[] {
@@ -29,15 +34,6 @@ export function buildCompanyColumns({
       ),
     },
     {
-      id: "ruc",
-      header: "RUC",
-      cell: ({ row }) => (
-        <span className="truncate text-[13px] font-semibold text-wv-muted-2">
-          {row.original.ruc ?? "—"}
-        </span>
-      ),
-    },
-    {
       id: "contact",
       header: "Contacto",
       cell: ({ row }) => {
@@ -48,6 +44,50 @@ export function buildCompanyColumns({
             <span className="block text-[11.5px] font-semibold text-wv-faint">
               {company.phone ?? "—"}
             </span>
+          </span>
+        );
+      },
+    },
+    {
+      id: "plan",
+      header: "Plan",
+      cell: ({ row }) => {
+        const subscription = subscriptionsByCompanyId?.get(row.original.id);
+        return (
+          <span className="text-[13px] font-bold text-wv-muted-2">
+            {subscription?.plan?.name ?? "Sin plan"}
+            {subscription?.isComplimentary && (
+              <span className="block text-[11.5px] font-semibold text-wv-faint">Cortesía</span>
+            )}
+          </span>
+        );
+      },
+    },
+    {
+      id: "subscription",
+      header: "Suscripción",
+      cell: ({ row }) => {
+        const subscription = subscriptionsByCompanyId?.get(row.original.id);
+        if (!subscription) {
+          return <span className="text-[13px] font-semibold text-wv-faint">—</span>;
+        }
+        return (
+          <span
+            className={`whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-extrabold ${SUBSCRIPTION_STATUS_BADGE[subscription.status]}`}
+          >
+            {SUBSCRIPTION_STATUS_LABEL[subscription.status]}
+          </span>
+        );
+      },
+    },
+    {
+      id: "renewsAt",
+      header: "Vence",
+      cell: ({ row }) => {
+        const subscription = subscriptionsByCompanyId?.get(row.original.id);
+        return (
+          <span className="text-[13px] font-semibold text-wv-muted-2">
+            {formatDate(subscription?.currentPeriodEnd)}
           </span>
         );
       },
@@ -75,6 +115,13 @@ export function buildCompanyColumns({
         const company = row.original;
         return (
           <div className="flex items-center justify-end gap-1.5">
+            <Link
+              href={`/company/${company.id}`}
+              aria-label={`Ver ${company.name}`}
+              className="grid h-9 w-9 place-items-center rounded-[10px] text-wv-muted outline-none transition-colors duration-150 ease-out hover:bg-wv-mint-soft hover:text-wv-teal-deep focus-visible:shadow-focus"
+            >
+              <Eye aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={2} />
+            </Link>
             <button
               type="button"
               onClick={() => onEdit(company)}
