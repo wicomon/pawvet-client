@@ -15,6 +15,7 @@ export const PAYMENT_METHOD_OPTIONS = [
 
 export interface RegisterPaymentFormValues {
   amount: string;
+  months: string;
   method: string;
   reference: string;
   notes: string;
@@ -22,6 +23,7 @@ export interface RegisterPaymentFormValues {
 
 export const emptyRegisterPaymentFormValues: RegisterPaymentFormValues = {
   amount: "",
+  months: "1",
   method: "",
   reference: "",
   notes: "",
@@ -32,6 +34,11 @@ export const registerPaymentSchema = Yup.object({
     .typeError("Ingresa un monto válido.")
     .required("El monto es obligatorio.")
     .positive("El monto debe ser mayor a 0."),
+  months: Yup.number()
+    .typeError("Ingresa un número de meses válido.")
+    .required("Indica cuántos meses se pagan.")
+    .integer("Debe ser un número entero.")
+    .min(1, "Mínimo 1 mes."),
   method: Yup.string().max(50, "Máximo 50 caracteres."),
   reference: Yup.string().max(100, "Máximo 100 caracteres."),
   notes: Yup.string().max(255, "Máximo 255 caracteres."),
@@ -45,6 +52,7 @@ export function toRegisterPaymentInput(
   return {
     companyId,
     amount: Number(values.amount),
+    months: Number(values.months),
     method: values.method.trim() || undefined,
     reference: values.reference.trim() || undefined,
     notes: values.notes.trim() || undefined,

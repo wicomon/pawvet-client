@@ -3,9 +3,10 @@
 import { print } from "graphql";
 import { redirect } from "next/navigation";
 import * as Yup from "yup";
-import { LOGIN } from "@/graphql/auth.gql";
+import { CHANGE_PASSWORD, LOGIN } from "@/graphql/auth.gql";
 import { createSession, deleteSession } from "@/lib/session";
-import { BACKEND_LOGIN_TIMEOUT_MS } from "@/lib/backendConfig";
+import { verifySession } from "@/lib/dal";
+import { BACKEND_LOGIN_TIMEOUT_MS, BACKEND_TIMEOUT_MS } from "@/lib/backendConfig";
 
 const LoginSchema = Yup.object({
   email: Yup.string()
@@ -83,4 +84,53 @@ export async function login(
 export async function logout() {
   await deleteSession();
   redirect("/login");
+}
+
+export type ChangePasswordResult = { ok: true } | { ok: false; message: string };
+
+// Self-service password change for the logged-in user. Identity comes from
+// the session token (authChangePassword takes no userId), so this must run
+// as an authenticated request — same fetch pattern as getUser() in
+// src/lib/dal.ts. Does not redirect: the caller (ChangePasswordForm) calls
+// logout() itself once this resolves ok, so the user re-authenticates with
+// the new password.
+export async function changePassword(input: {
+  currentPassword: string;
+  newPassword: string;
+}): Promise<ChangePasswordResult> {
+  const { token } = await verifySession();
+
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  if (!backendUrl) {
+    return { ok: false, message: "El backend no está configurado." };
+  }
+
+  try {
+    const res = await fetch(backendUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        query: print(CHANGE_PASSWORD),
+        variables: { changePasswordInput: input },
+      }),
+      cache: "no-store",
+      signal: AbortSignal.timeout(BACKEND_TIMEOUT_MS),
+    });
+
+    const { data, errors } = await res.json();
+
+    if (!res.ok || errors?.length || !data?.authChangePassword) {
+      return {
+        ok: false,
+        message: "No se pudo cambiar la contraseña. Verifica tu contraseña actual.",
+      };
+    }
+  } catch {
+    return { ok: false, message: "Ocurrió un error inesperado." };
+  }
+
+  return { ok: true };
 }

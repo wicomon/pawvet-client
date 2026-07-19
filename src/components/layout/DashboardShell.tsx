@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import ChangePasswordForm from "./ChangePasswordForm";
 import type { MenuSummary } from "@/types/user";
 
 type DashboardShellProps = {
@@ -25,6 +26,7 @@ export default function DashboardShell({
   menus,
 }: DashboardShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 
   return (
     <div className="flex min-h-dvh items-stretch">
@@ -39,11 +41,16 @@ export default function DashboardShell({
       <Sidebar
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
+        onChangePassword={() => setChangePasswordOpen(true)}
         userName={userName}
         userInitials={userInitials}
         companyName={companyName}
         menus={menus}
       />
+
+      {changePasswordOpen && (
+        <ChangePasswordForm onClose={() => setChangePasswordOpen(false)} />
+      )}
 
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar onOpenMenu={() => setMenuOpen(true)} />

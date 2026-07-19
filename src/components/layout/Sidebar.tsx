@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ChevronsUpDown, KeyRound, LogOut } from "lucide-react";
 import BrandIcon from "@/components/brand/BrandIcon";
 import { BRAND } from "@/content/brand";
 import { logout } from "@/app/actions/auth";
@@ -11,6 +13,7 @@ import type { MenuSummary } from "@/types/user";
 type SidebarProps = {
   isOpen: boolean;
   onClose: () => void;
+  onChangePassword: () => void;
   userName: string;
   userInitials: string;
   companyName: string;
@@ -23,6 +26,7 @@ type SidebarProps = {
 export default function Sidebar({
   isOpen,
   onClose,
+  onChangePassword,
   userName,
   userInitials,
   companyName,
@@ -79,7 +83,19 @@ export default function Sidebar({
         })}
       </nav>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 border-t border-wv-navy-line pt-3">
+        <button
+          type="button"
+          onClick={() => {
+            onChangePassword();
+            onClose();
+          }}
+          className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left text-sm font-bold text-wv-sidebar-muted outline-none transition-colors duration-150 ease-out hover:bg-white/8 focus-visible:shadow-focus"
+        >
+          <KeyRound aria-hidden="true" className="h-5 w-5 shrink-0" color="var(--color-wv-sidebar-muted)" strokeWidth={2} />
+          <span className="flex-1">Cambiar contraseña</span>
+        </button>
+
         <div className="flex flex-col gap-1 rounded-xl border border-wv-navy-line bg-wv-navy-panel px-3.5 py-3">
           <span className="text-[11px] font-extrabold tracking-wider text-wv-mint uppercase">
             Plan Clínica Pro

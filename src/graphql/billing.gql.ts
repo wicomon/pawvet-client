@@ -32,7 +32,6 @@ const SUBSCRIPTION_FIELDS = `
   planId
   status
   trialEndsAt
-  currentPeriodStart
   currentPeriodEnd
   cancelAtPeriodEnd
   canceledAt

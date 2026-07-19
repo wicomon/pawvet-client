@@ -5,13 +5,7 @@
 export const PLAN_INTERVAL_OPTIONS = ["MONTH", "YEAR"] as const;
 export type PlanInterval = (typeof PLAN_INTERVAL_OPTIONS)[number];
 
-export const SUBSCRIPTION_STATUS_OPTIONS = [
-  "TRIALING",
-  "ACTIVE",
-  "PAST_DUE",
-  "EXPIRED",
-  "CANCELED",
-] as const;
+export const SUBSCRIPTION_STATUS_OPTIONS = ["TRIAL", "FULL"] as const;
 export type SubscriptionStatus = (typeof SUBSCRIPTION_STATUS_OPTIONS)[number];
 
 export const PAYMENT_STATUS_OPTIONS = ["PENDING", "PAID", "FAILED", "REFUNDED"] as const;
@@ -38,7 +32,6 @@ export interface Subscription {
   planId: string;
   status: SubscriptionStatus;
   trialEndsAt?: string | null;
-  currentPeriodStart: string;
   currentPeriodEnd: string;
   cancelAtPeriodEnd: boolean;
   canceledAt?: string | null;
@@ -81,6 +74,7 @@ export interface UpsertSubscriptionInput {
 export interface CreateSubscriptionPaymentInput {
   companyId: string;
   amount: number;
+  months: number;
   method?: string;
   reference?: string;
   notes?: string;

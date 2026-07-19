@@ -2,7 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import type { Company } from "@/types/company";
-import { SUBSCRIPTION_STATUS_BADGE, SUBSCRIPTION_STATUS_LABEL, formatDate } from "@/lib/billing";
+import { getSubscriptionState, formatDate } from "@/lib/billing";
 
 type BuildCompanyColumnsArgs = {
   onEdit: (company: Company) => void;
@@ -65,11 +65,12 @@ export function buildCompanyColumns({ onEdit, onDelete }: BuildCompanyColumnsArg
         if (!subscription) {
           return <span className="text-[13px] font-semibold text-wv-faint">—</span>;
         }
+        const state = getSubscriptionState(subscription);
         return (
           <span
-            className={`whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-extrabold ${SUBSCRIPTION_STATUS_BADGE[subscription.status]}`}
+            className={`whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-extrabold ${state.badge}`}
           >
-            {SUBSCRIPTION_STATUS_LABEL[subscription.status]}
+            {state.label}
           </span>
         );
       },

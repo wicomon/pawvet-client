@@ -72,6 +72,7 @@ export default function RegisterPaymentForm({
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <TextField label="Monto" name="amount" type="number" placeholder="0.00" required />
+            <TextField label="Meses a pagar" name="months" type="number" placeholder="1" required />
             <SelectField label="Método" name="method" options={PAYMENT_METHOD_OPTIONS} />
           </div>
           <TextField label="Referencia" name="reference" placeholder="Opcional" />

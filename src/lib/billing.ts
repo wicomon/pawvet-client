@@ -2,26 +2,59 @@
 // money/date formatting used by both the /company list columns and the
 // /company/[id] detail screen, so the mapping only lives in one place.
 
-import type { PaymentStatus, PlanInterval, SubscriptionStatus } from "@/types/billing";
+import type { PaymentStatus, PlanInterval, Subscription } from "@/types/billing";
 
-export const SUBSCRIPTION_STATUS_LABEL: Record<SubscriptionStatus, string> = {
-  TRIALING: "En prueba",
-  ACTIVE: "Activa",
-  PAST_DUE: "Pago vencido",
-  EXPIRED: "Expirada",
-  CANCELED: "Cancelada",
-};
+// `status` (TRIAL | FULL) no longer indicates validity — it only labels
+// "trial" vs "paid plan". Whether a subscription is usable is derived
+// entirely from currentPeriodEnd (+ isComplimentary, which bypasses the date
+// check; + cancelAtPeriodEnd, which keeps access until the period ends even
+// though it's been canceled). See pawvet-server's billing module.
+export type SubscriptionStateKey = "COMPLIMENTARY" | "EXPIRED" | "CANCELING" | "TRIAL" | "ACTIVE";
 
-// bg/text pairs from the same wv-* tokens the company `isActive` pill already
-// uses (bg-wv-mint-soft/text-wv-teal-deep for "good", bg-danger-bg/text-danger
-// for "bad"), plus a neutral/warning tone for in-between states.
-export const SUBSCRIPTION_STATUS_BADGE: Record<SubscriptionStatus, string> = {
-  TRIALING: "bg-wv-mint-soft text-wv-teal-deep",
-  ACTIVE: "bg-wv-mint-soft text-wv-teal-deep",
-  PAST_DUE: "bg-wv-amber-bg text-wv-amber-ink",
-  EXPIRED: "bg-danger-bg text-danger",
-  CANCELED: "bg-danger-bg text-danger",
-};
+export interface SubscriptionState {
+  key: SubscriptionStateKey;
+  label: string; // short, for the badge
+  badge: string; // tailwind wv-* classes
+  note?: string; // date detail, for the summary card
+}
+
+export function getSubscriptionState(subscription: Subscription): SubscriptionState {
+  const isExpired = new Date(subscription.currentPeriodEnd).getTime() < Date.now();
+
+  if (subscription.isComplimentary) {
+    return { key: "COMPLIMENTARY", label: "Cortesía", badge: "bg-wv-mint-soft text-wv-teal-deep" };
+  }
+  if (isExpired) {
+    return {
+      key: "EXPIRED",
+      label: "Vencida",
+      badge: "bg-danger-bg text-danger",
+      note: `Venció el ${formatDate(subscription.currentPeriodEnd)}`,
+    };
+  }
+  if (subscription.cancelAtPeriodEnd) {
+    return {
+      key: "CANCELING",
+      label: "Cancelada",
+      badge: "bg-wv-amber-bg text-wv-amber-ink",
+      note: `Activa hasta ${formatDate(subscription.currentPeriodEnd)}`,
+    };
+  }
+  if (subscription.status === "TRIAL") {
+    return {
+      key: "TRIAL",
+      label: "Prueba",
+      badge: "bg-wv-mint-soft text-wv-teal-deep",
+      note: `Hasta ${formatDate(subscription.trialEndsAt ?? subscription.currentPeriodEnd)}`,
+    };
+  }
+  return {
+    key: "ACTIVE",
+    label: "Activa",
+    badge: "bg-wv-mint-soft text-wv-teal-deep",
+    note: `Vigente hasta ${formatDate(subscription.currentPeriodEnd)}`,
+  };
+}
 
 export const PAYMENT_STATUS_LABEL: Record<PaymentStatus, string> = {
   PENDING: "Pendiente",

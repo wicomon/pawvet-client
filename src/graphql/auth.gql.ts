@@ -8,6 +8,12 @@ export const LOGIN = gql`
   }
 `;
 
+export const CHANGE_PASSWORD = gql`
+  mutation AuthChangePassword($changePasswordInput: ChangePasswordInput!) {
+    authChangePassword(changePasswordInput: $changePasswordInput)
+  }
+`;
+
 export const AUTH_USER_INFO = gql`
   query AuthUserInfo {
     authUserInfo {

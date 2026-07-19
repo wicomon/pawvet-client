@@ -23,6 +23,15 @@ export function buildPaymentColumns(): ColumnDef<SubscriptionPayment>[] {
       ),
     },
     {
+      id: "period",
+      header: "Periodo cubierto",
+      cell: ({ row }) => (
+        <span className="text-[13px] font-semibold text-wv-muted-2">
+          {formatDate(row.original.periodStart)} – {formatDate(row.original.periodEnd)}
+        </span>
+      ),
+    },
+    {
       id: "method",
       header: "Método",
       cell: ({ row }) => (
