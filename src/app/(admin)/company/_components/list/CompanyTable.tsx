@@ -5,7 +5,6 @@ import Alert from "@/components/ui/Alert";
 import ConfirmDeleteDialog from "@/components/ui/ConfirmDeleteDialog";
 import { COMPANY_FIND_ALL, COMPANY_REMOVE } from "@/graphql/company.gql";
 import type { Company } from "@/types/company";
-import type { Subscription } from "@/types/billing";
 import type { Toast } from "@/types/ui.types";
 import { buildCompanyColumns } from "./companyColumns";
 import CompanyCreateForm from "./CompanyCreateForm";
@@ -13,17 +12,11 @@ import CompanyEditForm from "./CompanyEditForm";
 
 type CompanyTableProps = {
   companies: Company[];
-  subscriptionsByCompanyId?: Map<string, Subscription>;
   loading?: boolean;
   error?: string | null;
 };
 
-export default function CompanyTable({
-  companies,
-  subscriptionsByCompanyId,
-  loading,
-  error,
-}: CompanyTableProps) {
+export default function CompanyTable({ companies, loading, error }: CompanyTableProps) {
   const [formTarget, setFormTarget] = useState<Company | null | undefined>(undefined); // undefined = closed, null = create
   const [deleteTarget, setDeleteTarget] = useState<Company | null>(null);
   const [toast, setToast] = useState<Toast | null>(null);
@@ -52,7 +45,6 @@ export default function CompanyTable({
         error={error}
         data={companies}
         columns={buildCompanyColumns({
-          subscriptionsByCompanyId,
           onEdit: setFormTarget,
           onDelete: setDeleteTarget,
         })}

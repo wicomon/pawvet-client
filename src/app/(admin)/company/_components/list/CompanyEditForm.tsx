@@ -1,11 +1,14 @@
 "use client";
 
 import { Formik } from "formik";
-import { useMutation } from "@apollo/client/react";
+import { useMutation, useQuery } from "@apollo/client/react";
 import { COMPANY_FIND_ALL, COMPANY_UPDATE } from "@/graphql/company.gql";
+import { PLAN_FIND_ALL } from "@/graphql/billing.gql";
 import TextField from "@/components/forms/fields/TextField";
+import SelectField from "@/components/forms/fields/SelectField";
+import CheckboxField from "@/components/forms/fields/CheckboxField";
 import FormModal from "@/components/ui/FormModal";
-import { companySchema, companyToFormValues, toMutationInput } from "./companyFormConfig";
+import { companyEditSchema, companyToFormValues, toMutationInput } from "./companyFormConfig";
 import type { Company, UpdateCompanyInput } from "@/types/company";
 
 type CompanyEditFormProps = {
@@ -17,15 +20,24 @@ type CompanyEditFormProps = {
 
 // Formik + Yup form for editing a company. Mirrors CompanyCreateForm.tsx but
 // without the isEdit branching that used to live in CompanyFormModal.tsx.
+// Preloads plan/isComplimentary from company.subscription (if any) so
+// companyUpdate can change them in the same mutation.
 export default function CompanyEditForm({ company, onClose, onSaved, onError }: CompanyEditFormProps) {
+  const { data: planData, loading: plansLoading } = useQuery(PLAN_FIND_ALL);
   const [updateCompany] = useMutation(COMPANY_UPDATE, {
     refetchQueries: [COMPANY_FIND_ALL],
   });
 
+  const planOptions = [
+    { value: "", label: "Selecciona un plan..." },
+    ...(planData?.planFindAll ?? []).map((plan) => ({ value: plan.id, label: plan.name })),
+  ];
+
   return (
     <Formik
       initialValues={companyToFormValues(company)}
-      validationSchema={companySchema}
+      validationSchema={companyEditSchema}
+      enableReinitialize
       onSubmit={async (values, { setSubmitting }) => {
         try {
           const updateCompanyInput: UpdateCompanyInput = {
@@ -65,6 +77,26 @@ export default function CompanyEditForm({ company, onClose, onSaved, onError }: 
             <TextField label="Sitio web" name="website" placeholder="Opcional" />
           </div>
           <TextField label="Dirección" name="address" placeholder="Opcional" />
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <SelectField
+              label={plansLoading ? "Cargando planes…" : "Plan"}
+              name="planId"
+              options={planOptions}
+            />
+            <TextField
+              label="Días de prueba"
+              name="trialDays"
+              type="number"
+              placeholder="Opcional"
+              helperText="Deja vacío para no iniciar un nuevo periodo de prueba."
+            />
+          </div>
+          <CheckboxField
+            label="Cuenta de cortesía"
+            name="isComplimentary"
+            helperText="La suscripción no vencerá mientras esté marcada."
+          />
         </FormModal>
       )}
     </Formik>

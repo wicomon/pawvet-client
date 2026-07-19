@@ -2,20 +2,14 @@ import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import type { Company } from "@/types/company";
-import type { Subscription } from "@/types/billing";
 import { SUBSCRIPTION_STATUS_BADGE, SUBSCRIPTION_STATUS_LABEL, formatDate } from "@/lib/billing";
 
 type BuildCompanyColumnsArgs = {
-  subscriptionsByCompanyId?: Map<string, Subscription>;
   onEdit: (company: Company) => void;
   onDelete: (company: Company) => void;
 };
 
-export function buildCompanyColumns({
-  subscriptionsByCompanyId,
-  onEdit,
-  onDelete,
-}: BuildCompanyColumnsArgs): ColumnDef<Company>[] {
+export function buildCompanyColumns({ onEdit, onDelete }: BuildCompanyColumnsArgs): ColumnDef<Company>[] {
   return [
     {
       id: "name",
@@ -52,7 +46,7 @@ export function buildCompanyColumns({
       id: "plan",
       header: "Plan",
       cell: ({ row }) => {
-        const subscription = subscriptionsByCompanyId?.get(row.original.id);
+        const subscription = row.original.subscription;
         return (
           <span className="text-[13px] font-bold text-wv-muted-2">
             {subscription?.plan?.name ?? "Sin plan"}
@@ -67,7 +61,7 @@ export function buildCompanyColumns({
       id: "subscription",
       header: "Suscripción",
       cell: ({ row }) => {
-        const subscription = subscriptionsByCompanyId?.get(row.original.id);
+        const subscription = row.original.subscription;
         if (!subscription) {
           return <span className="text-[13px] font-semibold text-wv-faint">—</span>;
         }
@@ -84,7 +78,7 @@ export function buildCompanyColumns({
       id: "renewsAt",
       header: "Vence",
       cell: ({ row }) => {
-        const subscription = subscriptionsByCompanyId?.get(row.original.id);
+        const subscription = row.original.subscription;
         return (
           <span className="text-[13px] font-semibold text-wv-muted-2">
             {formatDate(subscription?.currentPeriodEnd)}

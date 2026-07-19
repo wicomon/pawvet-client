@@ -76,7 +76,9 @@ export function toUpsertSubscriptionInput(
   return {
     companyId,
     planId: values.planId,
-    isComplimentary: values.isComplimentary || undefined,
+    // Always send the literal boolean — `false` means "turn off cortesía"
+    // and must reach the backend; `|| undefined` would silently drop it.
+    isComplimentary: values.isComplimentary,
     trialDays: values.trialDays ? Number(values.trialDays) : undefined,
   };
 }
