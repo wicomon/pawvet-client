@@ -33,6 +33,30 @@ export default function Sidebar({
   menus,
 }: SidebarProps) {
   const pathname = usePathname();
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const accountMenuRef = useRef<HTMLDivElement>(null);
+
+  // Close the account popover on outside click / Escape. It's only wired up
+  // while open, since it's a lightweight, always-listening handler otherwise.
+  useEffect(() => {
+    if (!accountMenuOpen) return;
+
+    function handlePointerDown(event: MouseEvent) {
+      if (!accountMenuRef.current?.contains(event.target as Node)) {
+        setAccountMenuOpen(false);
+      }
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setAccountMenuOpen(false);
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [accountMenuOpen]);
 
   return (
     <aside
@@ -84,18 +108,6 @@ export default function Sidebar({
       </nav>
 
       <div className="flex flex-col gap-3 border-t border-wv-navy-line pt-3">
-        <button
-          type="button"
-          onClick={() => {
-            onChangePassword();
-            onClose();
-          }}
-          className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left text-sm font-bold text-wv-sidebar-muted outline-none transition-colors duration-150 ease-out hover:bg-white/8 focus-visible:shadow-focus"
-        >
-          <KeyRound aria-hidden="true" className="h-5 w-5 shrink-0" color="var(--color-wv-sidebar-muted)" strokeWidth={2} />
-          <span className="flex-1">Cambiar contraseña</span>
-        </button>
-
         <div className="flex flex-col gap-1 rounded-xl border border-wv-navy-line bg-wv-navy-panel px-3.5 py-3">
           <span className="text-[11px] font-extrabold tracking-wider text-wv-mint uppercase">
             Plan Clínica Pro
@@ -105,39 +117,70 @@ export default function Sidebar({
           </span>
         </div>
 
-        <div className="flex items-center gap-2.5 rounded-[10px] px-2.5 py-2">
-          <div className="grid h-8.5 w-8.5 shrink-0 place-items-center rounded-full bg-wv-mint-soft font-heading text-[13px] font-bold text-wv-teal-deep">
-            {userInitials}
-          </div>
-          <div className="flex min-w-0 flex-1 flex-col gap-px">
-            <span className="truncate text-[13.5px] font-bold text-white">{userName}</span>
-            <span className="truncate text-[11.5px] text-wv-sidebar-muted">
-              {companyName}
-            </span>
-          </div>
-          <form action={logout}>
-            <button
-              type="submit"
-              title="Cerrar sesión"
-              className="cursor-pointer rounded-md p-1.5 text-wv-sidebar-muted outline-none transition-colors duration-150 ease-out hover:bg-white/8 hover:text-white focus-visible:shadow-focus"
+        {/* Account menu: avatar + name is the trigger for a popover holding
+            "Cambiar contraseña" and "Cerrar sesión", so neither is always
+            visible in the sidebar. Opens upward (bottom-full) since it sits
+            at the foot of the sidebar. */}
+        <div ref={accountMenuRef} className="relative">
+          {accountMenuOpen && (
+            <div
+              role="menu"
+              aria-label="Cuenta"
+              className="absolute right-0 bottom-full left-0 z-10 mb-2 flex flex-col overflow-hidden rounded-xl border border-wv-navy-line bg-wv-navy-panel py-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.35)]"
             >
-              <span className="sr-only">Cerrar sesión</span>
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                fill="none"
-                className="h-4.5 w-4.5"
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => {
+                  setAccountMenuOpen(false);
+                  onChangePassword();
+                  onClose();
+                }}
+                className="flex w-full items-center gap-3 px-3.5 py-2.5 text-left text-sm font-bold text-wv-sidebar-muted outline-none transition-colors duration-150 ease-out hover:bg-white/8 hover:text-white focus-visible:shadow-focus hover:cursor-pointer"
               >
-                <path
-                  d="M15 17l5-5-5-5M20 12H9M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </form>
+                <KeyRound aria-hidden="true" className="h-4.5 w-4.5 shrink-0" strokeWidth={2} />
+                Cambiar contraseña
+              </button>
+
+              <form
+                action={logout}
+                className="border-t border-wv-navy-line"
+                onSubmit={() => setAccountMenuOpen(false)}
+              >
+                <button
+                  type="submit"
+                  role="menuitem"
+                  className="flex w-full items-center gap-3 px-3.5 py-2.5 text-left text-sm font-bold text-wv-sidebar-muted outline-none transition-colors duration-150 ease-out hover:bg-white/8 hover:text-white focus-visible:shadow-focus hover:cursor-pointer"
+                >
+                  <LogOut aria-hidden="true" className="h-4.5 w-4.5 shrink-0" strokeWidth={2} />
+                  Cerrar sesión
+                </button>
+              </form>
+            </div>
+          )}
+
+          <button
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded={accountMenuOpen}
+            onClick={() => setAccountMenuOpen((open) => !open)}
+            className="flex w-full items-center gap-2.5 rounded-[10px] px-2.5 py-2 outline-none transition-colors duration-150 ease-out hover:bg-white/8 focus-visible:shadow-focus hover:cursor-pointer"
+          >
+            <div className="grid h-8.5 w-8.5 shrink-0 place-items-center rounded-full bg-wv-mint-soft font-heading text-[13px] font-bold text-wv-teal-deep">
+              {userInitials}
+            </div>
+            <div className="flex min-w-0 flex-1 flex-col gap-px text-left">
+              <span className="truncate text-[13.5px] font-bold text-white">{userName}</span>
+              <span className="truncate text-[11.5px] text-wv-sidebar-muted">
+                {companyName}
+              </span>
+            </div>
+            <ChevronsUpDown
+              aria-hidden="true"
+              className="h-4 w-4 shrink-0 text-wv-sidebar-muted"
+              strokeWidth={2}
+            />
+          </button>
         </div>
       </div>
     </aside>
