@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { getUser } from "@/lib/dal";
 import DashboardGreeting from "./_components/DashboardGreeting";
 import KpiGrid from "./_components/KpiGrid";
@@ -13,6 +14,10 @@ export const metadata: Metadata = {
 
 export default async function DashboardPage() {
   const user = await getUser();
+
+  if (user?.role.name === "ROOT") {
+    redirect("/company");
+  }
 
   return (
     <>

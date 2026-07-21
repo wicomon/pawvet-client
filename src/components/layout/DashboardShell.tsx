@@ -9,21 +9,19 @@ import type { MenuSummary } from "@/types/user";
 type DashboardShellProps = {
   children: React.ReactNode;
   userName: string;
+  userRole: string;
   userInitials: string;
   companyName: string;
   menus: MenuSummary[];
 };
 
-// Client Component boundary for the app shell's mobile-drawer state. `children`
-// is the Server Component page passed straight through — see
-// node_modules/next/dist/docs/01-app/01-getting-started/05-server-and-client-components.md
-// ("Passing Server Components to Client Components as props").
 export default function DashboardShell({
   children,
   userName,
   userInitials,
   companyName,
   menus,
+  userRole,
 }: DashboardShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);

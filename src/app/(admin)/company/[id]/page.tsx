@@ -35,17 +35,10 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
     <>
       <div className="flex flex-wrap items-center gap-2 text-[13.5px] font-bold text-wv-faint">
         <Link
-          href="/dashboard"
-          className="font-extrabold text-wv-teal outline-none transition-colors duration-150 ease-out hover:text-wv-teal-hover focus-visible:shadow-focus"
-        >
-          ← Dashboard
-        </Link>
-        <span>/</span>
-        <Link
           href="/company"
           className="font-extrabold text-wv-teal outline-none transition-colors duration-150 ease-out hover:text-wv-teal-hover focus-visible:shadow-focus"
         >
-          Empresas
+          ← Empresas
         </Link>
         <span>/</span>
         <span className="text-wv-navy">Detalle</span>
