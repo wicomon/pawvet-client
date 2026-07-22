@@ -3,8 +3,8 @@
 import { print } from "graphql";
 import { redirect } from "next/navigation";
 import * as Yup from "yup";
-import { CHANGE_PASSWORD, LOGIN } from "@/graphql/auth.gql";
-import { createSession, deleteSession } from "@/lib/session";
+import { AUTH_LOGOUT, CHANGE_PASSWORD, LOGIN } from "@/graphql/auth.gql";
+import { createSession, deleteSession, getSessionToken } from "@/lib/session";
 import { verifySession } from "@/lib/dal";
 import { BACKEND_LOGIN_TIMEOUT_MS, BACKEND_TIMEOUT_MS } from "@/lib/backendConfig";
 
@@ -23,6 +23,31 @@ export interface LoginFormState {
     password?: string[];
   };
   message?: string;
+}
+
+// Best-effort: frees up the single-active-session slot on the backend and
+// clears the local cookie. Doesn't redirect — callers decide what happens
+// next (logout() redirects to /login, logoutSilently() and the pre-login
+// cleanup below don't).
+async function revokeSession() {
+  const token = await getSessionToken();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+  if (token && backendUrl) {
+    try {
+      await fetch(backendUrl, {
+        method: "POST",
+        headers: { "content-type": "application/json", authorization: `Bearer ${token}` },
+        body: JSON.stringify({ query: print(AUTH_LOGOUT) }),
+        cache: "no-store",
+        signal: AbortSignal.timeout(BACKEND_TIMEOUT_MS),
+      });
+    } catch {
+      // ignored — proceed to clear the local session anyway
+    }
+  }
+
+  await deleteSession();
 }
 
 export async function login(
@@ -55,6 +80,13 @@ export async function login(
     return { message: "El backend no está configurado." };
   }
 
+  // If the user arrives here with a stale local session (e.g. redirected to
+  // /login while already logged in), free it up before authenticating so it
+  // doesn't collide with the backend's single-session limit. A genuine
+  // "active session on another device" 403 has no local cookie to revoke, so
+  // that message still surfaces correctly below.
+  await revokeSession();
+
   try {
     const res = await fetch(backendUrl, {
       method: "POST",
@@ -70,7 +102,9 @@ export async function login(
     const { data, errors } = await res.json();
 
     if (!res.ok || errors?.length || !data?.authLogin?.token) {
-      return { message: "No se pudo iniciar sesión. Intenta de nuevo." };
+      return {
+        message: errors?.[0]?.message || "No se pudo iniciar sesión. Intenta de nuevo.",
+      };
     }
 
     await createSession(data.authLogin.token, { remember });
@@ -82,8 +116,25 @@ export async function login(
 }
 
 export async function logout() {
-  await deleteSession();
+  await revokeSession();
   redirect("/login");
+}
+
+// Same as logout() but without the redirect. Used by the /login page (via an
+// effect that runs on mount, see LoginSessionReset) to free up any leftover
+// session when the user lands on /login already logged in, so they can log
+// in cleanly instead of hitting the single-session 403.
+export async function logoutSilently() {
+  await revokeSession();
+}
+
+// Clears only the local session cookie, without redirecting or notifying the
+// backend. Used by the Apollo 401 interceptor (src/lib/apollo/client.ts): by
+// the time a 401 arrives the backend session is already gone (another login
+// took it, or it expired/was invalidated), so calling authLogout would be
+// pointless — and the interceptor itself handles navigation on the client.
+export async function clearSession() {
+  await deleteSession();
 }
 
 export type ChangePasswordResult = { ok: true } | { ok: false; message: string };
